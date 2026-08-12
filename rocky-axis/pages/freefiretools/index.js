@@ -13,6 +13,7 @@ import {
   FiSearch,
   FiFilter,
   FiX,
+  FiGrid,
 } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 
@@ -167,7 +168,7 @@ export default function FreeFireTools() {
                 />
               </div>
 
-              {/* Filter Toggle (only) – NO VIEW MODE BUTTONS */}
+              {/* Filter Toggle + Grid Indicator */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
@@ -179,6 +180,11 @@ export default function FreeFireTools() {
                 >
                   <FiFilter className="w-5 h-5" />
                 </button>
+
+                {/* ── Static Grid Indicator (no click, just visual) ── */}
+                <div className="p-2 rounded-xl bg-slate-700/50 border border-slate-600/50 text-purple-400">
+                  <FiGrid className="w-5 h-5" />
+                </div>
               </div>
             </div>
 
