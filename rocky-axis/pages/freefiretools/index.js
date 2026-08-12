@@ -147,9 +147,9 @@ export default function FreeFireTools() {
         />
 
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* ── Featured Slider (Clean Separation) ── */}
+          {/* ── Featured Slider (Enhanced Container) ── */}
           {hasFeatured && (
-            <div className="relative mb-8 rounded-2xl overflow-hidden bg-slate-800/50 border border-slate-700 shadow-xl">
+            <div className="relative mb-8 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -179,17 +179,16 @@ export default function FreeFireTools() {
                             <FiPackage className="w-24 h-24 text-purple-400/50" />
                           </div>
                         )}
-                        {/* Featured badge */}
                         <span className="absolute top-3 right-3 bg-yellow-500/90 text-black text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-lg z-10">
                           <FiStar className="w-3 h-3" /> Featured
                         </span>
                       </div>
 
-                      {/* ── Bottom Panel (Solid, Separated) ── */}
-                      <div className="bg-slate-800/95 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-slate-700">
+                      {/* ── Enhanced Bottom Panel ── */}
+                      <div className="bg-slate-800/95 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-purple-500/20 shadow-inner">
                         {/* App Icon */}
                         {tool.imageUrl && (
-                          <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg flex-shrink-0 bg-slate-700">
+                          <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
                             <Image
                               src={tool.imageUrl}
                               alt={`${tool.name} icon`}
@@ -202,7 +201,10 @@ export default function FreeFireTools() {
 
                         {/* Text Content */}
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
+                              {tool.name}
+                            </h2>
                             <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
                               {tool.category}
                             </span>
@@ -210,9 +212,6 @@ export default function FreeFireTools() {
                               {tool.platform}
                             </span>
                           </div>
-                          <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
-                            {tool.name}
-                          </h2>
                           <p className="text-sm text-slate-400 mt-1 line-clamp-2 max-w-2xl">
                             {tool.description}
                           </p>
@@ -224,7 +223,7 @@ export default function FreeFireTools() {
                             e.stopPropagation();
                             router.push(`/freefiretools/${tool.slug}`);
                           }}
-                          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
+                          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
                         >
                           View Details <FiArrowRight className="w-4 h-4" />
                         </button>
@@ -263,7 +262,7 @@ export default function FreeFireTools() {
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* ── Tool Feed (Grid / List) ── */}
+          {/* ── Tool Feed ── */}
           {filteredTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
