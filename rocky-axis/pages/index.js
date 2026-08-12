@@ -28,7 +28,7 @@ import {
 } from 'react-icons/fi';
 import { FaFire, FaRocket } from 'react-icons/fa';
 
-// ── Inside Items (unchanged) ──
+// ── Inside Items ──
 const insideItems = [
   { icon: FiFile, title: 'Regedit Files', description: 'Optimized registry files for Windows to boost FPS, reduce lag, and improve overall performance.' },
   { icon: FiTarget, title: 'Headshot Configs', description: 'Professional headshot configuration files for precise aiming and one-tap kills.' },
@@ -41,15 +41,15 @@ const insideItems = [
   { icon: FiBox, title: 'All-in-One Packs', description: 'Complete bundles containing everything you need for a pro-level setup.' },
 ];
 
-// ── Popular Downloads (unchanged) ──
+// ── Popular Downloads (replaced emojis with icons) ──
 const popularDownloads = [
-  { icon: '⚙️', name: 'Regedit Pro Pack', description: 'Ultimate Windows registry tweaks', downloads: '12.4K', rating: '4.8' },
-  { icon: '🎯', name: 'Headshot Master Config', description: 'One-tap headshot settings', downloads: '9.8K', rating: '4.7' },
-  { icon: '📱', name: 'Sensi Pro APK v3.2', description: 'Best sensitivity APK for Android', downloads: '15.2K', rating: '4.9' },
-  { icon: '🚀', name: 'GFX Tool Pro', description: 'Graphics optimization for low-end phones', downloads: '18.6K', rating: '4.8' },
+  { icon: FiSettings, name: 'Regedit Pro Pack', description: 'Ultimate Windows registry tweaks', downloads: '12.4K', rating: '4.8' },
+  { icon: FiTarget, name: 'Headshot Master Config', description: 'One-tap headshot settings', downloads: '9.8K', rating: '4.7' },
+  { icon: FiSmartphone, name: 'Sensi Pro APK v3.2', description: 'Best sensitivity APK for Android', downloads: '15.2K', rating: '4.9' },
+  { icon: FaRocket, name: 'GFX Tool Pro', description: 'Graphics optimization for low-end phones', downloads: '18.6K', rating: '4.8' },
 ];
 
-// ── Why Items (unchanged) ──
+// ── Why Items ──
 const whyItems = [
   { icon: FiShield, title: '100% Safe', description: 'All files are scanned and verified to be virus-free and secure.' },
   { icon: FiZap, title: 'Proven Results', description: 'Tested and trusted by thousands of players worldwide.' },
@@ -70,7 +70,6 @@ export default function RockyAxis() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideInterval = useRef(null);
 
-  // ── Auto-slide every 3 seconds ──
   useEffect(() => {
     slideInterval.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
@@ -105,6 +104,32 @@ export default function RockyAxis() {
       />
 
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
+        {/* ── Top Navbar ── */}
+        <nav className="flex items-center justify-between px-6 py-4 bg-slate-800/60 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-50">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700">
+              <Image
+                src="/images/rockyaxis.jpg"
+                alt="Rocky Axis"
+                width={40}
+                height={40}
+                className="object-cover"
+              />
+            </div>
+            <span className="text-xl font-bold text-white">Rocky Axis</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 text-sm text-slate-300">
+            <button onClick={() => router.push('/')} className="hover:text-white transition">Home</button>
+            <button onClick={() => router.push('/freefiretools')} className="hover:text-white transition">Tools</button>
+          </div>
+          <button
+            onClick={() => router.push('/freefiretools')}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-xl transition"
+          >
+            Explore Tools <FiArrowRight className="w-4 h-4" />
+          </button>
+        </nav>
+
         {/* ── Hero Section ── */}
         <section className="relative overflow-hidden px-4 py-16 sm:py-24">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-transparent to-indigo-600/20" />
@@ -166,12 +191,10 @@ export default function RockyAxis() {
                     priority={index === 0}
                     quality={90}
                   />
-                  {/* Optional overlay text if needed */}
                 </div>
               ))}
             </div>
 
-            {/* Controls */}
             {carouselImages.length > 1 && (
               <>
                 <button
@@ -205,14 +228,14 @@ export default function RockyAxis() {
 
         {/* ── Brands / Trusted Section ── */}
         <section className="max-w-6xl mx-auto px-4 py-12">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
+          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16 bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
             {/* Garena Logo */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <Image
                 src="/images/garena-logo.jpg"
                 alt="Garena"
-                width={80}
-                height={80}
+                width={100}
+                height={100}
                 className="object-contain opacity-80 hover:opacity-100 transition"
               />
             </div>
@@ -221,8 +244,8 @@ export default function RockyAxis() {
               <Image
                 src="/images/freefire.jpg"
                 alt="Free Fire"
-                width={120}
-                height={40}
+                width={140}
+                height={50}
                 className="object-contain opacity-80 hover:opacity-100 transition"
               />
             </div>
@@ -231,28 +254,15 @@ export default function RockyAxis() {
               <Image
                 src="/images/grandmaster-logo.jpg"
                 alt="Grandmaster"
-                width={80}
-                height={80}
+                width={100}
+                height={100}
                 className="object-contain opacity-80 hover:opacity-100 transition"
               />
-            </div>
-            {/* Rocky Axis Icon */}
-            <div className="flex items-center gap-2">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-400/30 bg-slate-700 flex-shrink-0">
-                <Image
-                  src="/images/rockyaxis.jpg"
-                  alt="Rocky Axis"
-                  width={48}
-                  height={48}
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-sm font-bold text-slate-300">Rocky Axis</span>
             </div>
           </div>
         </section>
 
-        {/* ── What's Inside ── (unchanged) ── */}
+        {/* ── What's Inside ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -273,7 +283,7 @@ export default function RockyAxis() {
           </div>
         </section>
 
-        {/* ── Popular Downloads ── (unchanged) ── */}
+        {/* ── Popular Downloads ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -284,7 +294,9 @@ export default function RockyAxis() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {popularDownloads.map((item, index) => (
               <div key={index} className="bg-slate-800/50 border border-slate-700 rounded-xl p-5 text-center hover:border-purple-500/50 transition hover:bg-slate-800/80 group">
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <div className="text-3xl mb-3 text-purple-400 flex justify-center">
+                  <item.icon className="w-8 h-8" />
+                </div>
                 <h4 className="text-sm font-bold text-white group-hover:text-purple-400 transition">{item.name}</h4>
                 <p className="text-xs text-slate-400 mt-1">{item.description}</p>
                 <div className="mt-3 flex items-center justify-center gap-2 text-xs text-slate-500">
@@ -297,7 +309,7 @@ export default function RockyAxis() {
           </div>
         </section>
 
-        {/* ── Why Rocky Axis ── (unchanged) ── */}
+        {/* ── Why Rocky Axis ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
