@@ -13,8 +13,6 @@ import {
   FiSearch,
   FiFilter,
   FiX,
-  FiGrid,
-  FiList,
 } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 
@@ -33,7 +31,6 @@ export default function FreeFireTools() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedPlatform, setSelectedPlatform] = useState('All');
   const [sortBy, setSortBy] = useState('popular');
-  const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
 
   // ── Featured slider ──
@@ -170,7 +167,7 @@ export default function FreeFireTools() {
                 />
               </div>
 
-              {/* Filter Toggle & View Mode */}
+              {/* Filter Toggle (only) – NO VIEW MODE BUTTONS */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
@@ -182,28 +179,6 @@ export default function FreeFireTools() {
                 >
                   <FiFilter className="w-5 h-5" />
                 </button>
-
-                {/* ── View Mode Toggle (Fixed) ── */}
-                <div className="flex bg-slate-800/80 rounded-xl p-0.5 border border-slate-600/50">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-lg transition ${
-                      viewMode === 'grid' ? 'bg-purple-500/30 text-white' : 'text-slate-400 hover:text-white'
-                    }`}
-                    aria-label="Grid view"
-                  >
-                    <FiGrid className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-lg transition ${
-                      viewMode === 'list' ? 'bg-purple-500/30 text-white' : 'text-slate-400 hover:text-white'
-                    }`}
-                    aria-label="List view"
-                  >
-                    <FiList className="w-4 h-4" />
-                  </button>
-                </div>
               </div>
             </div>
 
@@ -378,7 +353,7 @@ export default function FreeFireTools() {
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* Tool Feed */}
+          {/* Tool Grid (always grid) */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
@@ -391,7 +366,7 @@ export default function FreeFireTools() {
                 Clear Filters
               </button>
             </div>
-          ) : viewMode === 'grid' ? (
+          ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {displayTools.map((tool) => {
                 const mainImage = getMainImage(tool);
@@ -445,87 +420,6 @@ export default function FreeFireTools() {
                       <p className="text-xs text-slate-400 mt-1 line-clamp-2 flex-1">{tool.description}</p>
                       <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-700/50">
                         <span className="text-[10px] text-slate-400">{tool.category}</span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(`/freefiretools/${tool.slug}`);
-                          }}
-                          className="text-xs font-medium text-purple-400 hover:text-purple-300 transition flex items-center gap-1"
-                        >
-                          View Details <FiArrowRight className="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {displayTools.map((tool) => {
-                const mainImage = getMainImage(tool);
-                return (
-                  <div
-                    key={tool.id}
-                    className="bg-slate-800/70 border border-slate-700 rounded-2xl overflow-hidden hover:border-purple-500/50 transition hover:bg-slate-800 group cursor-pointer flex flex-col sm:flex-row"
-                    onClick={() => router.push(`/freefiretools/${tool.slug}`)}
-                  >
-                    <div className="relative w-full sm:w-48 h-40 sm:h-auto aspect-video sm:aspect-square bg-slate-700 flex-shrink-0 overflow-hidden">
-                      {mainImage ? (
-                        <Image
-                          src={mainImage}
-                          alt={tool.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition duration-300"
-                          sizes="(max-width: 768px) 100vw, 192px"
-                          quality={85}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-indigo-900/50">
-                          <FiPackage className="w-16 h-16 text-purple-400/50" />
-                        </div>
-                      )}
-                      {tool.featured && (
-                        <span className="absolute top-2 right-2 bg-yellow-500/90 text-black text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-lg">
-                          <FiStar className="w-3 h-3" /> Featured
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex-1 p-4 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {tool.imageUrl && (
-                            <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600">
-                              <Image
-                                src={tool.imageUrl}
-                                alt={`${tool.name} icon`}
-                                width={24}
-                                height={24}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
-                          <h3 className="text-base font-bold text-white group-hover:text-purple-400 transition">
-                            {tool.name}
-                          </h3>
-                          <span className="text-xs bg-slate-700 px-2 py-0.5 rounded-full text-slate-400">
-                            {tool.category}
-                          </span>
-                          <span className="text-xs bg-slate-700 px-2 py-0.5 rounded-full text-slate-400">
-                            {tool.platform}
-                          </span>
-                        </div>
-                        <p className="text-xs text-slate-400 mt-1 line-clamp-2">{tool.description}</p>
-                      </div>
-                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-700/50">
-                        <div className="flex items-center gap-3 text-xs text-slate-500">
-                          <span className="flex items-center gap-1">
-                            <FiDownload className="w-3 h-3" /> {tool.downloads}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <FiStar className="w-3 h-3 text-yellow-400" /> {tool.rating}
-                          </span>
-                        </div>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
