@@ -95,7 +95,6 @@ export default function FreeFireTools() {
     return result;
   }, [searchTerm, selectedCategory, selectedPlatform, sortBy]);
 
-  // If filter active, show all matching tools; else show only non‑featured in the list
   const displayTools = isFilterActive
     ? filteredTools
     : filteredTools.filter(t => !t.featured);
@@ -189,8 +188,9 @@ export default function FreeFireTools() {
                         </span>
                       </div>
 
-                      {/* Bottom Panel – same design as normal card */}
+                      {/* ── Bottom Panel: Icon + Title + Tags in ONE ROW ── */}
                       <div className="bg-slate-800/95 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-purple-500/20 shadow-inner">
+                        {/* Icon */}
                         {tool.imageUrl && (
                           <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
                             <Image
@@ -202,8 +202,10 @@ export default function FreeFireTools() {
                             />
                           </div>
                         )}
+
+                        {/* Text: Title + Tags in same flex row */}
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-3 flex-wrap">
+                          <div className="flex flex-wrap items-center gap-2">
                             <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
                               {tool.name}
                             </h2>
@@ -218,6 +220,8 @@ export default function FreeFireTools() {
                             {tool.description}
                           </p>
                         </div>
+
+                        {/* Button */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -261,7 +265,7 @@ export default function FreeFireTools() {
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* ── Normal Apps Grid / List ── */}
+          {/* ── Normal Apps Grid ── */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
@@ -309,7 +313,8 @@ export default function FreeFireTools() {
                       </span>
                     </div>
                     <div className="p-4 flex flex-col flex-1">
-                      <div className="flex items-center gap-2">
+                      {/* Icon + Title in same row */}
+                      <div className="flex items-center gap-2 flex-wrap">
                         {tool.imageUrl && (
                           <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600">
                             <Image
