@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import Head from 'next/head';
+import Meta from '../../components/Meta';
 import Footer from '../../components/rockyaxis/Footer';
 import { toolsData } from '../../lib/rockyaxis/data';
 import {
@@ -14,6 +14,8 @@ import {
   FiPackage,
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+
+const SITE_URL = 'https://rockyaxis.vercel.app';
 
 export default function ToolDetail() {
   const router = useRouter();
@@ -38,11 +40,8 @@ export default function ToolDetail() {
     );
   }
 
-  const siteUrl = 'https://rockyaxis.vercel.app';
   const mainImage = tool.thumbnail || tool.imageUrl || '';
-  const fullImageUrl = mainImage?.startsWith('http') ? mainImage : `${siteUrl}${mainImage.startsWith('/') ? mainImage : '/' + mainImage}`;
-  const fullIconUrl = tool.imageUrl?.startsWith('http') ? tool.imageUrl : `${siteUrl}${tool.imageUrl.startsWith('/') ? tool.imageUrl : '/' + tool.imageUrl}`;
-  const pageUrl = `${siteUrl}/freefiretools/${tool.slug}`;
+  const imageUrl = mainImage?.startsWith('http') ? mainImage : `${SITE_URL}${mainImage.startsWith('/') ? mainImage : '/' + mainImage}`;
 
   const handleDownload = () => {
     if (tool.downloadUrl && tool.downloadUrl !== '#') {
@@ -70,61 +69,45 @@ export default function ToolDetail() {
 
   return (
     <>
-      {/* ── SEO Head ── */}
-      <Head>
-        <title>{`${tool.name} – Free Fire Tool by Rocky Axis`}</title>
-        <meta name="description" content={tool.longDescription || tool.description} />
-        <link rel="canonical" href={pageUrl} />
+      {/* ── Meta tags ── */}
+      <Meta
+        title={`${tool.name} – Free Fire Tool by Rocky Axis`}
+        description={tool.longDescription || tool.description}
+        keywords={`${tool.name}, Free Fire, ${tool.category}, ${tool.platform}, Free Fire tools`}
+        image={imageUrl}
+        url={`/freefiretools/${tool.slug}`}
+        type="article"
+      />
 
-        {/* Open Graph / Facebook */}
-        <meta property="og:title" content={`${tool.name} – Free Fire Tool`} />
-        <meta property="og:description" content={tool.longDescription || tool.description} />
-        <meta property="og:image" content={fullImageUrl} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Rocky Axis" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${tool.name} – Free Fire Tool`} />
-        <meta name="twitter:description" content={tool.longDescription || tool.description} />
-        <meta name="twitter:image" content={fullImageUrl} />
-        <meta name="twitter:image:alt" content={tool.name} />
-
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'SoftwareApplication',
-              name: tool.name,
-              description: tool.longDescription || tool.description,
-              applicationCategory: 'GameApplication',
-              operatingSystem: tool.platform === 'All' ? 'Android, iOS, Windows' : tool.platform,
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-              },
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: tool.rating,
-                ratingCount: parseInt(tool.downloads.replace('K', '')) * 1000 || 100,
-              },
-              fileSize: tool.fileSize,
-              version: tool.version,
-              datePublished: tool.updatedAt,
-              screenshot: tool.screenshots || [],
-              image: fullImageUrl,
-              thumbnailUrl: fullIconUrl,
-              downloadUrl: tool.downloadUrl !== '#' ? tool.downloadUrl : undefined,
-            }),
-          }}
-        />
-      </Head>
+      {/* ── JSON-LD Structured Data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: tool.name,
+            description: tool.longDescription || tool.description,
+            applicationCategory: 'GameApplication',
+            operatingSystem: tool.platform === 'All' ? 'Android, iOS, Windows' : tool.platform,
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: tool.rating,
+              ratingCount: parseInt(tool.downloads.replace('K', '')) * 1000 || 100,
+            },
+            fileSize: tool.fileSize,
+            version: tool.version,
+            datePublished: tool.updatedAt,
+            screenshot: tool.screenshots || [],
+            image: imageUrl,
+          }),
+        }}
+      />
 
       <div className="min-h-screen bg-slate-900 text-white">
         {/* ── Back Button ── */}
@@ -181,7 +164,7 @@ export default function ToolDetail() {
           </div>
         </div>
 
-        {/* ── Content ── */}
+        {/* ── Content (unchanged) ── */}
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div>
@@ -205,7 +188,6 @@ export default function ToolDetail() {
               </div>
             )}
 
-            {/* ── Screenshots – Horizontal ── */}
             {tool.screenshots && tool.screenshots.length > 0 && (
               <div>
                 <h2 className="text-xl font-bold text-white mb-3">Screenshots</h2>
@@ -229,7 +211,6 @@ export default function ToolDetail() {
             )}
           </div>
 
-          {/* ── Sidebar ── */}
           <div className="space-y-6">
             <div className="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 sticky top-24">
               <button
@@ -237,13 +218,7 @@ export default function ToolDetail() {
                 disabled={isDownloading}
                 className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                {isDownloading ? (
-                  <span>Starting...</span>
-                ) : (
-                  <>
-                    <FiDownload className="w-5 h-5" /> Download Now
-                  </>
-                )}
+                {isDownloading ? <span>Starting...</span> : <><FiDownload className="w-5 h-5" /> Download Now</>}
               </button>
               <div className="mt-4 space-y-2 text-sm text-slate-400">
                 <div className="flex justify-between"><span>Version</span><span className="text-white">{tool.version}</span></div>
