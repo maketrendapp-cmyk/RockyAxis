@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Meta from '../components/Meta';
 import CTASection from '../components/rockyaxis/CTASection';
-import Footer from '../components/rockyaxis/Footer';
 import {
   FiCheckCircle,
   FiCpu,
@@ -97,63 +96,13 @@ export default function RockyAxis() {
     <>
       <Meta
         title="Rocky Axis – Free Fire Tools, Hacks, Configs & APKs"
-        description="Download the best Free Fire tools, Regedit files, headshot configs, sensi APKs, and gameplay improvement files. Compatible with all devices, all servers, and all phones. 100% free!"
-        keywords="Free Fire, Free Fire tools, Free Fire hacks, Regedit, headshot config, sensi APK, GFX tool, gameplay improvement"
+        description="Download the best Free Fire tools: Panel Hacks, Sensi APK, Sensi files, Regedit files, Headshot configs, and more. 100% free! Compatible with all devices."
+        keywords="Free Fire, Free Fire tools, Panel Hacks, Sensi APK, Regedit, headshot config, gameplay improvement, GFX tool, Free Fire hacks"
         image="/images/rockyaxis/og-image.jpg"
         url="/"
       />
 
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
-        {/* ── Professional Header ── */}
-        <header className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Left: Logo + Brand */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700 shadow-md">
-                  <Image
-                    src="/images/rockyaxis.jpg"
-                    alt="Rocky Axis"
-                    width={40}
-                    height={40}
-                    className="object-cover"
-                  />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                  Rocky Axis
-                </span>
-              </div>
-
-              {/* Center: Navigation (desktop) */}
-              <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-                <button
-                  onClick={() => router.push('/')}
-                  className="text-slate-300 hover:text-white transition-colors"
-                >
-                  Home
-                </button>
-                <button
-                  onClick={() => router.push('/freefiretools')}
-                  className="text-slate-300 hover:text-white transition-colors"
-                >
-                  Tools
-                </button>
-              </nav>
-
-              {/* Right: CTA Button */}
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => router.push('/freefiretools')}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg hover:shadow-purple-500/30"
-                >
-                  Explore Tools
-                  <FiArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
         {/* ── Hero Section ── */}
         <section className="relative overflow-hidden px-4 py-16 sm:py-24">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-transparent to-indigo-600/20" />
@@ -172,10 +121,10 @@ export default function RockyAxis() {
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-slate-300 mt-4 font-medium">
-              The Ultimate Collection of Free Fire Tools, Configs & APKs
+              Free Fire Panel Hacks, Sensi APK, Regedit Files & More
             </p>
             <p className="text-slate-400 mt-3 max-w-2xl mx-auto">
-              Download Regedit files, headshot configs, sensi APKs, and more — optimized for all devices, all servers, and all phones. 100% free!
+              Download the best Free Fire tools – <strong>Panel Hacks</strong>, <strong>Sensi APK</strong>, <strong>Sensi files</strong>, <strong>Regedit files</strong>, Headshot configs, and performance boosters – all completely free and optimized for every device and server.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
@@ -256,7 +205,7 @@ export default function RockyAxis() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
               What's Inside <span className="text-purple-400">Rocky Axis</span>
             </h2>
-            <p className="text-slate-400 mt-2">Everything you need to dominate in Free Fire</p>
+            <p className="text-slate-400 mt-2">Everything you need to dominate in Free Fire – all free!</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {insideItems.map((item, index) => (
@@ -322,8 +271,6 @@ export default function RockyAxis() {
         <section className="max-w-4xl mx-auto px-4 py-16">
           <CTASection />
         </section>
-
-        <Footer />
       </div>
     </>
   );
