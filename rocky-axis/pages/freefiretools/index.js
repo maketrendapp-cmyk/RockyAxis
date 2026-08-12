@@ -147,9 +147,9 @@ export default function FreeFireTools() {
         />
 
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* ── Featured Slider (Enhanced Container) ── */}
+          {/* ── FEATURED SLIDER – Premium Design ── */}
           {hasFeatured && (
-            <div className="relative mb-8 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
+            <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -162,7 +162,7 @@ export default function FreeFireTools() {
                       className="w-full flex-shrink-0 cursor-pointer group"
                       onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                     >
-                      {/* ── Image Area ── */}
+                      {/* ── Large Image ── */}
                       <div className="relative w-full aspect-[16/6] min-h-[200px] bg-slate-700">
                         {mainImage ? (
                           <Image
@@ -184,9 +184,9 @@ export default function FreeFireTools() {
                         </span>
                       </div>
 
-                      {/* ── Enhanced Bottom Panel ── */}
+                      {/* ── Bottom Panel ── */}
                       <div className="bg-slate-800/95 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-purple-500/20 shadow-inner">
-                        {/* App Icon */}
+                        {/* Icon – left of title */}
                         {tool.imageUrl && (
                           <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
                             <Image
@@ -199,7 +199,7 @@ export default function FreeFireTools() {
                           </div>
                         )}
 
-                        {/* Text Content */}
+                        {/* Text – icon and title in same row */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 flex-wrap">
                             <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
@@ -217,7 +217,7 @@ export default function FreeFireTools() {
                           </p>
                         </div>
 
-                        {/* View Details Button */}
+                        {/* Button */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -233,7 +233,7 @@ export default function FreeFireTools() {
                 })}
               </div>
 
-              {/* ── Slider Controls ── */}
+              {/* Slider Controls */}
               {featuredTools.length > 1 && (
                 <>
                   <button
@@ -256,13 +256,13 @@ export default function FreeFireTools() {
             </div>
           )}
 
-          {/* ── Results Count ── */}
+          {/* ── RESULTS COUNT ── */}
           <p className="text-sm text-slate-400 mb-4">
             Showing <span className="text-white font-medium">{filteredTools.length}</span> tools
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* ── Tool Feed ── */}
+          {/* ── NORMAL APPS – Grid & List ── */}
           {filteredTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
@@ -285,6 +285,7 @@ export default function FreeFireTools() {
                     className="bg-slate-800/70 border border-slate-700 rounded-2xl overflow-hidden hover:border-purple-500/50 transition hover:bg-slate-800 group cursor-pointer hover:shadow-xl hover:shadow-purple-500/10 flex flex-col"
                     onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                   >
+                    {/* ── Thumbnail ── */}
                     <div className="relative aspect-video bg-slate-700 overflow-hidden">
                       {mainImage ? (
                         <Image
@@ -300,13 +301,14 @@ export default function FreeFireTools() {
                           <FiPackage className="w-16 h-16 text-purple-400/50" />
                         </div>
                       )}
+                      {/* Small icon badge on image (optional, but we also show it in text) */}
                       {tool.imageUrl && (
-                        <div className="absolute top-2 left-2 w-10 h-10 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg bg-slate-800">
+                        <div className="absolute top-2 left-2 w-8 h-8 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg bg-slate-800">
                           <Image
                             src={tool.imageUrl}
                             alt={`${tool.name} icon`}
-                            width={40}
-                            height={40}
+                            width={32}
+                            height={32}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -320,10 +322,26 @@ export default function FreeFireTools() {
                         {tool.platform}
                       </span>
                     </div>
+
+                    {/* ── Text Area ── */}
                     <div className="p-4 flex flex-col flex-1">
-                      <h3 className="font-bold text-white group-hover:text-purple-400 transition text-base line-clamp-1">
-                        {tool.name}
-                      </h3>
+                      {/* Icon + Title (same row) */}
+                      <div className="flex items-center gap-2">
+                        {tool.imageUrl && (
+                          <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600">
+                            <Image
+                              src={tool.imageUrl}
+                              alt={`${tool.name} icon`}
+                              width={24}
+                              height={24}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <h3 className="font-bold text-white group-hover:text-purple-400 transition text-base line-clamp-1">
+                          {tool.name}
+                        </h3>
+                      </div>
                       <p className="text-xs text-slate-400 mt-1 line-clamp-2 flex-1">{tool.description}</p>
                       <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-700/50">
                         <span className="text-[10px] text-slate-400">{tool.category}</span>
@@ -368,12 +386,12 @@ export default function FreeFireTools() {
                         </div>
                       )}
                       {tool.imageUrl && (
-                        <div className="absolute top-2 left-2 w-10 h-10 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg bg-slate-800">
+                        <div className="absolute top-2 left-2 w-8 h-8 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg bg-slate-800">
                           <Image
                             src={tool.imageUrl}
                             alt={`${tool.name} icon`}
-                            width={40}
-                            height={40}
+                            width={32}
+                            height={32}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -387,6 +405,17 @@ export default function FreeFireTools() {
                     <div className="flex-1 p-4 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
+                          {tool.imageUrl && (
+                            <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600">
+                              <Image
+                                src={tool.imageUrl}
+                                alt={`${tool.name} icon`}
+                                width={24}
+                                height={24}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
                           <h3 className="text-base font-bold text-white group-hover:text-purple-400 transition">
                             {tool.name}
                           </h3>
