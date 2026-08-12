@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
-import Meta from '../../components/Meta';
 import Footer from '../../components/rockyaxis/Footer';
 import { toolsData } from '../../lib/rockyaxis/data';
 import {
@@ -39,10 +38,11 @@ export default function ToolDetail() {
     );
   }
 
-  const mainImage = tool.thumbnail || tool.imageUrl || '';
   const siteUrl = 'https://rockyaxis.vercel.app';
+  const mainImage = tool.thumbnail || tool.imageUrl || '';
   const fullImageUrl = mainImage?.startsWith('http') ? mainImage : `${siteUrl}${mainImage.startsWith('/') ? mainImage : '/' + mainImage}`;
   const fullIconUrl = tool.imageUrl?.startsWith('http') ? tool.imageUrl : `${siteUrl}${tool.imageUrl.startsWith('/') ? tool.imageUrl : '/' + tool.imageUrl}`;
+  const pageUrl = `${siteUrl}/freefiretools/${tool.slug}`;
 
   const handleDownload = () => {
     if (tool.downloadUrl && tool.downloadUrl !== '#') {
@@ -70,67 +70,61 @@ export default function ToolDetail() {
 
   return (
     <>
-      {/* ── Direct Head for title & meta fallback ── */}
+      {/* ── SEO Head ── */}
       <Head>
         <title>{`${tool.name} – Free Fire Tool by Rocky Axis`}</title>
         <meta name="description" content={tool.longDescription || tool.description} />
-        <link rel="canonical" href={`${siteUrl}/freefiretools/${tool.slug}`} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph / Facebook */}
         <meta property="og:title" content={`${tool.name} – Free Fire Tool`} />
         <meta property="og:description" content={tool.longDescription || tool.description} />
         <meta property="og:image" content={fullImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content={`${siteUrl}/freefiretools/${tool.slug}`} />
+        <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Rocky Axis" />
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${tool.name} – Free Fire Tool`} />
         <meta name="twitter:description" content={tool.longDescription || tool.description} />
         <meta name="twitter:image" content={fullImageUrl} />
         <meta name="twitter:image:alt" content={tool.name} />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              name: tool.name,
+              description: tool.longDescription || tool.description,
+              applicationCategory: 'GameApplication',
+              operatingSystem: tool.platform === 'All' ? 'Android, iOS, Windows' : tool.platform,
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: tool.rating,
+                ratingCount: parseInt(tool.downloads.replace('K', '')) * 1000 || 100,
+              },
+              fileSize: tool.fileSize,
+              version: tool.version,
+              datePublished: tool.updatedAt,
+              screenshot: tool.screenshots || [],
+              image: fullImageUrl,
+              thumbnailUrl: fullIconUrl,
+              downloadUrl: tool.downloadUrl !== '#' ? tool.downloadUrl : undefined,
+            }),
+          }}
+        />
       </Head>
-
-      {/* ── Meta Component (for consistency) ── */}
-      <Meta
-        title={`${tool.name} – Free Fire Tool by Rocky Axis`}
-        description={tool.longDescription || tool.description}
-        keywords={`${tool.name}, Free Fire, ${tool.category}, ${tool.platform}, Free Fire tools`}
-        image={mainImage}
-        url={`/freefiretools/${tool.slug}`}
-        type="article"
-      />
-
-      {/* ── JSON-LD Structured Data ── */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: tool.name,
-            description: tool.longDescription || tool.description,
-            applicationCategory: 'GameApplication',
-            operatingSystem: tool.platform === 'All' ? 'Android, iOS, Windows' : tool.platform,
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'USD',
-            },
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: tool.rating,
-              ratingCount: parseInt(tool.downloads.replace('K', '')) * 1000 || 100,
-            },
-            fileSize: tool.fileSize,
-            version: tool.version,
-            datePublished: tool.updatedAt,
-            screenshot: tool.screenshots || [],
-            image: fullImageUrl,
-            thumbnailUrl: fullIconUrl,
-            downloadUrl: tool.downloadUrl !== '#' ? tool.downloadUrl : undefined,
-          }),
-        }}
-      />
 
       <div className="min-h-screen bg-slate-900 text-white">
         {/* ── Back Button ── */}
@@ -189,7 +183,6 @@ export default function ToolDetail() {
 
         {/* ── Content ── */}
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main */}
           <div className="lg:col-span-2 space-y-8">
             <div>
               <h2 className="text-xl font-bold text-white mb-3">Description</h2>
@@ -212,7 +205,7 @@ export default function ToolDetail() {
               </div>
             )}
 
-            {/* ── Screenshots – Horizontal Scroll ── */}
+            {/* ── Screenshots – Horizontal ── */}
             {tool.screenshots && tool.screenshots.length > 0 && (
               <div>
                 <h2 className="text-xl font-bold text-white mb-3">Screenshots</h2>
