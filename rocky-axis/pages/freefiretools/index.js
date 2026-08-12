@@ -147,7 +147,7 @@ export default function FreeFireTools() {
         />
 
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* ── Featured Slider ── */}
+          {/* ── Featured Slider (Clean Separation) ── */}
           {hasFeatured && (
             <div className="relative mb-8 rounded-2xl overflow-hidden bg-slate-800/50 border border-slate-700 shadow-xl">
               <div
@@ -159,11 +159,11 @@ export default function FreeFireTools() {
                   return (
                     <div
                       key={tool.id}
-                      className="w-full flex-shrink-0 relative cursor-pointer group"
+                      className="w-full flex-shrink-0 cursor-pointer group"
                       onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                     >
-                      <div className="relative w-full aspect-[16/6] min-h-[220px] bg-slate-700">
-                        {/* ── Background Image ── */}
+                      {/* ── Image Area ── */}
+                      <div className="relative w-full aspect-[16/6] min-h-[200px] bg-slate-700">
                         {mainImage ? (
                           <Image
                             src={mainImage}
@@ -179,55 +179,55 @@ export default function FreeFireTools() {
                             <FiPackage className="w-24 h-24 text-purple-400/50" />
                           </div>
                         )}
+                        {/* Featured badge */}
+                        <span className="absolute top-3 right-3 bg-yellow-500/90 text-black text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-lg z-10">
+                          <FiStar className="w-3 h-3" /> Featured
+                        </span>
+                      </div>
 
-                        {/* ── Gradient overlay to make text readable ── */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent" />
-
-                        {/* ── Content Panel (bottom) ── */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 flex items-start gap-4">
-                          {/* App Icon */}
-                          {tool.imageUrl && (
-                            <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white/30 shadow-xl flex-shrink-0 bg-slate-800">
-                              <Image
-                                src={tool.imageUrl}
-                                alt={`${tool.name} icon`}
-                                width={64}
-                                height={64}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
-
-                          {/* Text Content */}
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1 flex-wrap">
-                              <span className="bg-yellow-500/90 text-black text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                                <FiStar className="w-3 h-3" /> Featured
-                              </span>
-                              <span className="bg-slate-700/80 text-white text-xs px-2.5 py-0.5 rounded-full">
-                                {tool.category}
-                              </span>
-                              <span className="bg-slate-700/80 text-white text-xs px-2.5 py-0.5 rounded-full">
-                                {tool.platform}
-                              </span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-white group-hover:text-purple-400 transition">
-                              {tool.name}
-                            </h2>
-                            <p className="text-sm sm:text-base text-slate-300 mt-1 max-w-2xl line-clamp-2">
-                              {tool.description}
-                            </p>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                router.push(`/freefiretools/${tool.slug}`);
-                              }}
-                              className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
-                            >
-                              View Details <FiArrowRight className="w-4 h-4" />
-                            </button>
+                      {/* ── Bottom Panel (Solid, Separated) ── */}
+                      <div className="bg-slate-800/95 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-slate-700">
+                        {/* App Icon */}
+                        {tool.imageUrl && (
+                          <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg flex-shrink-0 bg-slate-700">
+                            <Image
+                              src={tool.imageUrl}
+                              alt={`${tool.name} icon`}
+                              width={56}
+                              height={56}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
+                        )}
+
+                        {/* Text Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
+                              {tool.category}
+                            </span>
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
+                              {tool.platform}
+                            </span>
+                          </div>
+                          <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
+                            {tool.name}
+                          </h2>
+                          <p className="text-sm text-slate-400 mt-1 line-clamp-2 max-w-2xl">
+                            {tool.description}
+                          </p>
                         </div>
+
+                        {/* View Details Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/freefiretools/${tool.slug}`);
+                          }}
+                          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
+                        >
+                          View Details <FiArrowRight className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
                   );
