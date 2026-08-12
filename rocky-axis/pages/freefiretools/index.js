@@ -36,6 +36,7 @@ export default function FreeFireTools() {
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
 
+  // ── Featured slider ──
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideInterval = useRef(null);
 
@@ -62,14 +63,10 @@ export default function FreeFireTools() {
     }
   };
 
-  const prevSlide = () => {
-    goToSlide((currentSlide - 1 + featuredTools.length) % featuredTools.length);
-  };
+  const prevSlide = () => goToSlide((currentSlide - 1 + featuredTools.length) % featuredTools.length);
+  const nextSlide = () => goToSlide((currentSlide + 1) % featuredTools.length);
 
-  const nextSlide = () => {
-    goToSlide((currentSlide + 1) % featuredTools.length);
-  };
-
+  // ── Filter & sort ──
   const filteredTools = useMemo(() => {
     let result = toolsData;
     if (searchTerm.trim()) {
@@ -119,8 +116,8 @@ export default function FreeFireTools() {
 
   const hasActiveFilters = searchTerm || selectedCategory !== 'All' || selectedPlatform !== 'All' || sortBy !== 'popular';
 
-  const renderDots = () => {
-    return featuredTools.map((_, index) => (
+  const renderDots = () =>
+    featuredTools.map((_, index) => (
       <button
         key={index}
         onClick={() => goToSlide(index)}
@@ -130,7 +127,6 @@ export default function FreeFireTools() {
         aria-label={`Go to slide ${index + 1}`}
       />
     ));
-  };
 
   const getMainImage = (tool) => tool.thumbnail || tool.imageUrl || '';
 
@@ -145,7 +141,7 @@ export default function FreeFireTools() {
       />
 
       <div className="min-h-screen bg-slate-900 text-white">
-        {/* Page Header */}
+        {/* ── Page Header ── */}
         <div className="bg-slate-800/50 border-b border-slate-700/50 py-6 px-4">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-3xl sm:text-4xl font-bold text-white flex items-center gap-2">
@@ -158,10 +154,11 @@ export default function FreeFireTools() {
           </div>
         </div>
 
-        {/* Sticky Search Bar */}
+        {/* ── Sticky Search Bar ── */}
         <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              {/* Search Input */}
               <div className="flex-1 relative w-full sm:w-auto">
                 <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
@@ -173,6 +170,7 @@ export default function FreeFireTools() {
                 />
               </div>
 
+              {/* Filter Toggle & View Mode */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
@@ -184,12 +182,15 @@ export default function FreeFireTools() {
                 >
                   <FiFilter className="w-5 h-5" />
                 </button>
+
+                {/* ── View Mode Toggle (Fixed) ── */}
                 <div className="flex bg-slate-800/80 rounded-xl p-0.5 border border-slate-600/50">
                   <button
                     onClick={() => setViewMode('grid')}
                     className={`p-2 rounded-lg transition ${
                       viewMode === 'grid' ? 'bg-purple-500/30 text-white' : 'text-slate-400 hover:text-white'
                     }`}
+                    aria-label="Grid view"
                   >
                     <FiGrid className="w-4 h-4" />
                   </button>
@@ -198,6 +199,7 @@ export default function FreeFireTools() {
                     className={`p-2 rounded-lg transition ${
                       viewMode === 'list' ? 'bg-purple-500/30 text-white' : 'text-slate-400 hover:text-white'
                     }`}
+                    aria-label="List view"
                   >
                     <FiList className="w-4 h-4" />
                   </button>
@@ -205,6 +207,7 @@ export default function FreeFireTools() {
               </div>
             </div>
 
+            {/* Expandable Filters */}
             {showFilters && (
               <div className="mt-3 pt-3 border-t border-slate-700/50">
                 <div className="flex flex-wrap items-center gap-4">
@@ -266,8 +269,9 @@ export default function FreeFireTools() {
           </div>
         </div>
 
-        {/* Main Content */}
+        {/* ── Main Content ── */}
         <div className="max-w-7xl mx-auto px-4 py-6">
+          {/* Featured Slider */}
           {hasFeatured && !isFilterActive && (
             <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
@@ -368,11 +372,13 @@ export default function FreeFireTools() {
             </div>
           )}
 
+          {/* Results Count */}
           <p className="text-sm text-slate-400 mb-4">
             Showing <span className="text-white font-medium">{displayTools.length}</span> tools
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
+          {/* Tool Feed */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
