@@ -12,7 +12,6 @@ import {
   FiCheck,
   FiShare2,
   FiPackage,
-  FiExternalLink,
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
@@ -39,13 +38,11 @@ export default function ToolDetail() {
     );
   }
 
-  // Main image: thumbnail first, fallback to imageUrl
   const mainImage = tool.thumbnail || tool.imageUrl || '';
 
   const handleDownload = () => {
     if (tool.downloadUrl && tool.downloadUrl !== '#') {
       setIsDownloading(true);
-      // Open in new tab or trigger download
       window.open(tool.downloadUrl, '_blank');
       toast.success(`Downloading ${tool.name}...`);
       setTimeout(() => setIsDownloading(false), 2000);
@@ -89,9 +86,8 @@ export default function ToolDetail() {
           </button>
         </div>
 
-        {/* ── Hero Section ── */}
+        {/* ── Hero ── */}
         <div className="relative w-full bg-slate-800">
-          {/* Main Image as background */}
           <div className="relative w-full h-64 md:h-96 bg-slate-700">
             {mainImage ? (
               <Image
@@ -110,9 +106,7 @@ export default function ToolDetail() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
           </div>
 
-          {/* Overlay content: App Icon + Title + Metadata */}
           <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col sm:flex-row items-start sm:items-end gap-4">
-            {/* App Icon */}
             {tool.imageUrl && (
               <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/20 shadow-xl bg-slate-800 flex-shrink-0">
                 <Image
@@ -138,9 +132,8 @@ export default function ToolDetail() {
 
         {/* ── Content ── */}
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
+          {/* Main */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Description */}
             <div>
               <h2 className="text-xl font-bold text-white mb-3">Description</h2>
               <div className="text-slate-300 leading-relaxed whitespace-pre-wrap">
@@ -148,7 +141,6 @@ export default function ToolDetail() {
               </div>
             </div>
 
-            {/* Features */}
             {tool.features && tool.features.length > 0 && (
               <div>
                 <h2 className="text-xl font-bold text-white mb-3">Key Features</h2>
@@ -163,15 +155,15 @@ export default function ToolDetail() {
               </div>
             )}
 
-            {/* Screenshots – Mobile-first vertical grid */}
+            {/* ── Screenshots – Horizontal Scroll ── */}
             {tool.screenshots && tool.screenshots.length > 0 && (
               <div>
                 <h2 className="text-xl font-bold text-white mb-3">Screenshots</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-slate-700">
                   {tool.screenshots.map((src, index) => (
                     <div
                       key={index}
-                      className="relative aspect-[9/16] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-lg hover:shadow-purple-500/20 transition"
+                      className="relative w-40 sm:w-56 flex-shrink-0 aspect-[9/16] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-lg snap-center hover:shadow-purple-500/20 transition"
                     >
                       <Image
                         src={src}
@@ -204,22 +196,10 @@ export default function ToolDetail() {
                 )}
               </button>
               <div className="mt-4 space-y-2 text-sm text-slate-400">
-                <div className="flex justify-between">
-                  <span>Version</span>
-                  <span className="text-white">{tool.version}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>File Size</span>
-                  <span className="text-white">{tool.fileSize}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Updated</span>
-                  <span className="text-white">{tool.updatedAt}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Downloads</span>
-                  <span className="text-white">{tool.downloads}</span>
-                </div>
+                <div className="flex justify-between"><span>Version</span><span className="text-white">{tool.version}</span></div>
+                <div className="flex justify-between"><span>File Size</span><span className="text-white">{tool.fileSize}</span></div>
+                <div className="flex justify-between"><span>Updated</span><span className="text-white">{tool.updatedAt}</span></div>
+                <div className="flex justify-between"><span>Downloads</span><span className="text-white">{tool.downloads}</span></div>
               </div>
               <button
                 onClick={handleShare}
