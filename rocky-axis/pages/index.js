@@ -41,7 +41,7 @@ const insideItems = [
   { icon: FiBox, title: 'All-in-One Packs', description: 'Complete bundles containing everything you need for a pro-level setup.' },
 ];
 
-// ── Popular Downloads (replaced emojis with icons) ──
+// ── Popular Downloads ──
 const popularDownloads = [
   { icon: FiSettings, name: 'Regedit Pro Pack', description: 'Ultimate Windows registry tweaks', downloads: '12.4K', rating: '4.8' },
   { icon: FiTarget, name: 'Headshot Master Config', description: 'One-tap headshot settings', downloads: '9.8K', rating: '4.7' },
@@ -104,31 +104,55 @@ export default function RockyAxis() {
       />
 
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
-        {/* ── Top Navbar ── */}
-        <nav className="flex items-center justify-between px-6 py-4 bg-slate-800/60 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-50">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700">
-              <Image
-                src="/images/rockyaxis.jpg"
-                alt="Rocky Axis"
-                width={40}
-                height={40}
-                className="object-cover"
-              />
+        {/* ── Professional Header ── */}
+        <header className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              {/* Left: Logo + Brand */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700 shadow-md">
+                  <Image
+                    src="/images/rockyaxis.jpg"
+                    alt="Rocky Axis"
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                  Rocky Axis
+                </span>
+              </div>
+
+              {/* Center: Navigation (desktop) */}
+              <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+                <button
+                  onClick={() => router.push('/')}
+                  className="text-slate-300 hover:text-white transition-colors"
+                >
+                  Home
+                </button>
+                <button
+                  onClick={() => router.push('/freefiretools')}
+                  className="text-slate-300 hover:text-white transition-colors"
+                >
+                  Tools
+                </button>
+              </nav>
+
+              {/* Right: CTA Button */}
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => router.push('/freefiretools')}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg hover:shadow-purple-500/30"
+                >
+                  Explore Tools
+                  <FiArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <span className="text-xl font-bold text-white">Rocky Axis</span>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm text-slate-300">
-            <button onClick={() => router.push('/')} className="hover:text-white transition">Home</button>
-            <button onClick={() => router.push('/freefiretools')} className="hover:text-white transition">Tools</button>
-          </div>
-          <button
-            onClick={() => router.push('/freefiretools')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-xl transition"
-          >
-            Explore Tools <FiArrowRight className="w-4 h-4" />
-          </button>
-        </nav>
+        </header>
 
         {/* ── Hero Section ── */}
         <section className="relative overflow-hidden px-4 py-16 sm:py-24">
@@ -223,42 +247,6 @@ export default function RockyAxis() {
                 </div>
               </>
             )}
-          </div>
-        </section>
-
-        {/* ── Brands / Trusted Section ── */}
-        <section className="max-w-6xl mx-auto px-4 py-12">
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16 bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
-            {/* Garena Logo */}
-            <div className="flex items-center">
-              <Image
-                src="/images/garena-logo.jpg"
-                alt="Garena"
-                width={100}
-                height={100}
-                className="object-contain opacity-80 hover:opacity-100 transition"
-              />
-            </div>
-            {/* FreeFire Text */}
-            <div className="flex items-center">
-              <Image
-                src="/images/freefire.jpg"
-                alt="Free Fire"
-                width={140}
-                height={50}
-                className="object-contain opacity-80 hover:opacity-100 transition"
-              />
-            </div>
-            {/* Grandmaster Logo */}
-            <div className="flex items-center">
-              <Image
-                src="/images/grandmaster-logo.jpg"
-                alt="Grandmaster"
-                width={100}
-                height={100}
-                className="object-contain opacity-80 hover:opacity-100 transition"
-              />
-            </div>
           </div>
         </section>
 
