@@ -5,7 +5,7 @@ export const toolsData = [
     id: 1,
     slug: 'zerox-ff-sensi-apk',
     name: 'Zerox FF Sensi APK',
-    category: 'Sensi APKs',
+    category: 'Sensi',
     platform: 'Android',
     imageUrl: 'https://i.postimg.cc/XvBSNNPd/zerox-ff-sensi.png',
     thumbnail: 'https://i.postimg.cc/nLhr3mMG/zerox-ff-sensi-thumb.jpg',
