@@ -1,6 +1,7 @@
 // pages/index.js
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Meta from '../components/Meta';
 import CTASection from '../components/rockyaxis/CTASection';
 import Footer from '../components/rockyaxis/Footer';
@@ -22,9 +23,12 @@ import {
   FiBox,
   FiDownload,
   FiArrowRight,
+  FiChevronLeft,
+  FiChevronRight,
 } from 'react-icons/fi';
 import { FaFire, FaRocket } from 'react-icons/fa';
 
+// ── Inside Items (unchanged) ──
 const insideItems = [
   { icon: FiFile, title: 'Regedit Files', description: 'Optimized registry files for Windows to boost FPS, reduce lag, and improve overall performance.' },
   { icon: FiTarget, title: 'Headshot Configs', description: 'Professional headshot configuration files for precise aiming and one-tap kills.' },
@@ -37,6 +41,7 @@ const insideItems = [
   { icon: FiBox, title: 'All-in-One Packs', description: 'Complete bundles containing everything you need for a pro-level setup.' },
 ];
 
+// ── Popular Downloads (unchanged) ──
 const popularDownloads = [
   { icon: '⚙️', name: 'Regedit Pro Pack', description: 'Ultimate Windows registry tweaks', downloads: '12.4K', rating: '4.8' },
   { icon: '🎯', name: 'Headshot Master Config', description: 'One-tap headshot settings', downloads: '9.8K', rating: '4.7' },
@@ -44,6 +49,7 @@ const popularDownloads = [
   { icon: '🚀', name: 'GFX Tool Pro', description: 'Graphics optimization for low-end phones', downloads: '18.6K', rating: '4.8' },
 ];
 
+// ── Why Items (unchanged) ──
 const whyItems = [
   { icon: FiShield, title: '100% Safe', description: 'All files are scanned and verified to be virus-free and secure.' },
   { icon: FiZap, title: 'Proven Results', description: 'Tested and trusted by thousands of players worldwide.' },
@@ -51,8 +57,42 @@ const whyItems = [
   { icon: FiAward, title: 'Pro-Level Quality', description: 'Curated by experienced players and tech experts.' },
 ];
 
+// ── Carousel Images ──
+const carouselImages = [
+  { src: '/images/brutal-sensi.jpg', alt: 'Brutal Sensi Config' },
+  { src: '/images/panel.jpg', alt: 'Panel Tools' },
+  { src: '/images/config.jpg', alt: 'Regedit Config' },
+  { src: '/images/Sensi.jpg', alt: 'Sensi APK' },
+];
+
 export default function RockyAxis() {
   const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideInterval = useRef(null);
+
+  // ── Auto-slide every 3 seconds ──
+  useEffect(() => {
+    slideInterval.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 3000);
+    return () => clearInterval(slideInterval.current);
+  }, []);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+    clearInterval(slideInterval.current);
+    slideInterval.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 3000);
+  };
+
+  const prevSlide = () => {
+    goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  const nextSlide = () => {
+    goToSlide((currentSlide + 1) % carouselImages.length);
+  };
 
   return (
     <>
@@ -65,7 +105,7 @@ export default function RockyAxis() {
       />
 
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
-        {/* Hero Section */}
+        {/* ── Hero Section ── */}
         <section className="relative overflow-hidden px-4 py-16 sm:py-24">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-transparent to-indigo-600/20" />
           <div className="absolute top-20 right-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
@@ -109,7 +149,110 @@ export default function RockyAxis() {
           </div>
         </section>
 
-        {/* What's Inside */}
+        {/* ── Image Carousel ── */}
+        <section className="max-w-6xl mx-auto px-4 py-8">
+          <div className="relative rounded-2xl overflow-hidden bg-slate-800/50 border border-slate-700 shadow-xl">
+            <div
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {carouselImages.map((img, index) => (
+                <div key={index} className="w-full flex-shrink-0 relative aspect-[16/6] min-h-[220px] bg-slate-700">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                    quality={90}
+                  />
+                  {/* Optional overlay text if needed */}
+                </div>
+              ))}
+            </div>
+
+            {/* Controls */}
+            {carouselImages.length > 1 && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition z-20"
+                >
+                  <FiChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition z-20"
+                >
+                  <FiChevronRight className="w-5 h-5" />
+                </button>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                  {carouselImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        currentSlide === index ? 'bg-purple-500 w-6' : 'bg-slate-600 hover:bg-slate-500'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+
+        {/* ── Brands / Trusted Section ── */}
+        <section className="max-w-6xl mx-auto px-4 py-12">
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
+            {/* Garena Logo */}
+            <div className="flex items-center gap-2">
+              <Image
+                src="/images/garena-logo.jpg"
+                alt="Garena"
+                width={80}
+                height={80}
+                className="object-contain opacity-80 hover:opacity-100 transition"
+              />
+            </div>
+            {/* FreeFire Text */}
+            <div className="flex items-center">
+              <Image
+                src="/images/freefire.jpg"
+                alt="Free Fire"
+                width={120}
+                height={40}
+                className="object-contain opacity-80 hover:opacity-100 transition"
+              />
+            </div>
+            {/* Grandmaster Logo */}
+            <div className="flex items-center">
+              <Image
+                src="/images/grandmaster-logo.jpg"
+                alt="Grandmaster"
+                width={80}
+                height={80}
+                className="object-contain opacity-80 hover:opacity-100 transition"
+              />
+            </div>
+            {/* Rocky Axis Icon */}
+            <div className="flex items-center gap-2">
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-400/30 bg-slate-700 flex-shrink-0">
+                <Image
+                  src="/images/rockyaxis.jpg"
+                  alt="Rocky Axis"
+                  width={48}
+                  height={48}
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-sm font-bold text-slate-300">Rocky Axis</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── What's Inside ── (unchanged) ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -130,7 +273,7 @@ export default function RockyAxis() {
           </div>
         </section>
 
-        {/* Popular Downloads */}
+        {/* ── Popular Downloads ── (unchanged) ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -154,7 +297,7 @@ export default function RockyAxis() {
           </div>
         </section>
 
-        {/* Why Rocky Axis */}
+        {/* ── Why Rocky Axis ── (unchanged) ── */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -175,6 +318,7 @@ export default function RockyAxis() {
           </div>
         </section>
 
+        {/* ── CTA ── */}
         <section className="max-w-4xl mx-auto px-4 py-16">
           <CTASection />
         </section>
