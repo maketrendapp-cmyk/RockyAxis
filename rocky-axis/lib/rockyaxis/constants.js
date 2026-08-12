@@ -1,5 +1,7 @@
-export const CATEGORIES = ['All', 'Regedit', 'Headshot Configs', 'Sensi APKs', 'GFX Tools', 'Audio', 'Packs'];
-export const PLATFORMS = ['All', 'Android', 'iOS', 'Windows', 'PC'];
+// lib/rockyaxis/constants.js
+
+export const CATEGORIES = ['All', 'Sensi', 'Panel', 'Regedit', 'Hacks', 'Tools'];
+export const PLATFORMS = ['All', 'Android', 'iOS', 'PC'];
 export const SORT_OPTIONS = [
   { value: 'popular', label: 'Popular' },
   { value: 'rating', label: 'Top Rated' },
