@@ -3,7 +3,6 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Meta from '../../components/Meta';
-import Footer from '../../components/rockyaxis/Footer';
 import { toolsData } from '../../lib/rockyaxis/data';
 import {
   FiStar,
@@ -139,30 +138,30 @@ export default function FreeFireTools() {
     <>
       <Meta
         title="Free Fire Tools – Zerox FF Sensi APK & More"
-        description="Browse the best Free Fire tools: Zerox FF Sensi APK, sensitivity optimizers, and more. 100% free!"
+        description="Browse the best Free Fire tools: Zerox FF Sensi APK, sensitivity optimizers, Regedit files, and more. 100% free!"
         keywords="Free Fire tools, Zerox FF Sensi APK, sensitivity APK, Free Fire hacks"
         image="/images/rockyaxis/og-tools.jpg"
         url="/freefiretools"
       />
 
       <div className="min-h-screen bg-slate-900 text-white">
-        {/* ── Page Header ── */}
-        <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <FaFire className="text-orange-400" /> Free Fire Tools
-          </h1>
-          <p className="text-sm text-slate-400">Discover the best tools, configs & APKs</p>
+        {/* Page Header */}
+        <div className="bg-slate-800/50 border-b border-slate-700/50 py-6 px-4">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white flex items-center gap-2">
+              <FaFire className="text-orange-400" />
+              Free Fire Tools
+            </h1>
+            <p className="text-slate-400 mt-1 text-sm">
+              Browse and download the best Free Fire tools – Sensi APKs, Regedit files, Headshot configs, and more. All free!
+            </p>
+          </div>
         </div>
 
-        {/* ── Sticky Search & Filter Bar ── */}
+        {/* Sticky Search Bar */}
         <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
-                <FaFire className="text-orange-400" />
-                <span className="hidden sm:inline">Tools</span>
-              </div>
-
               <div className="flex-1 relative w-full sm:w-auto">
                 <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
@@ -267,7 +266,7 @@ export default function FreeFireTools() {
           </div>
         </div>
 
-        {/* ── Main Content ── */}
+        {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 py-6">
           {hasFeatured && !isFilterActive && (
             <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
@@ -538,8 +537,6 @@ export default function FreeFireTools() {
             </div>
           )}
         </div>
-
-        <Footer />
       </div>
     </>
   );
