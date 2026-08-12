@@ -23,26 +23,27 @@ export default function FreeFireTools() {
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
 
-  // Featured slider
+  // ── Featured slider ──
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideInterval = useRef(null);
 
   const featuredTools = useMemo(() => toolsData.filter(t => t.featured), []);
   const hasFeatured = featuredTools.length > 0;
+  const isFilterActive = searchTerm.trim() !== '' || selectedCategory !== 'All' || selectedPlatform !== 'All';
 
   useEffect(() => {
-    if (hasFeatured) {
+    if (hasFeatured && !isFilterActive) {
       slideInterval.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % featuredTools.length);
       }, 2000);
     }
     return () => clearInterval(slideInterval.current);
-  }, [hasFeatured, featuredTools.length]);
+  }, [hasFeatured, isFilterActive, featuredTools.length]);
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
     clearInterval(slideInterval.current);
-    if (hasFeatured) {
+    if (hasFeatured && !isFilterActive) {
       slideInterval.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % featuredTools.length);
       }, 2000);
@@ -57,7 +58,7 @@ export default function FreeFireTools() {
     goToSlide((currentSlide + 1) % featuredTools.length);
   };
 
-  // Filter & sort
+  // ── Filter & sort ──
   const filteredTools = useMemo(() => {
     let result = toolsData;
     if (searchTerm.trim()) {
@@ -93,6 +94,11 @@ export default function FreeFireTools() {
     }
     return result;
   }, [searchTerm, selectedCategory, selectedPlatform, sortBy]);
+
+  // If filter active, show all matching tools; else show only non‑featured in the list
+  const displayTools = isFilterActive
+    ? filteredTools
+    : filteredTools.filter(t => !t.featured);
 
   const clearFilters = () => {
     setSearchTerm('');
@@ -147,9 +153,9 @@ export default function FreeFireTools() {
         />
 
         <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* ── FEATURED SLIDER ── */}
-          {hasFeatured && (
-            <div className="relative mb-10 rounded-2xl overflow-hidden bg-slate-800/50 border border-slate-700 shadow-xl">
+          {/* ── Featured Slider (only when no filters) ── */}
+          {hasFeatured && !isFilterActive && (
+            <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -162,7 +168,6 @@ export default function FreeFireTools() {
                       className="w-full flex-shrink-0 cursor-pointer group"
                       onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                     >
-                      {/* Image */}
                       <div className="relative w-full aspect-[16/6] min-h-[200px] bg-slate-700">
                         {mainImage ? (
                           <Image
@@ -184,11 +189,10 @@ export default function FreeFireTools() {
                         </span>
                       </div>
 
-                      {/* Bottom Panel */}
-                      <div className="bg-slate-800/95 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 border-t border-slate-700">
-                        {/* Icon – left of title */}
+                      {/* Bottom Panel – same design as normal card */}
+                      <div className="bg-slate-800/95 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-purple-500/20 shadow-inner">
                         {tool.imageUrl && (
-                          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
+                          <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
                             <Image
                               src={tool.imageUrl}
                               alt={`${tool.name} icon`}
@@ -198,32 +202,28 @@ export default function FreeFireTools() {
                             />
                           </div>
                         )}
-
-                        {/* Text – icon and title in same row */}
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-400 transition">
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
                               {tool.name}
                             </h2>
-                            <span className="bg-slate-700 text-white text-xs px-2 py-0.5 rounded-full">
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
                               {tool.category}
                             </span>
-                            <span className="bg-slate-700 text-white text-xs px-2 py-0.5 rounded-full">
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
                               {tool.platform}
                             </span>
                           </div>
-                          <p className="text-sm text-slate-400 mt-0.5 line-clamp-2 max-w-2xl">
+                          <p className="text-sm text-slate-400 mt-1 line-clamp-2 max-w-2xl">
                             {tool.description}
                           </p>
                         </div>
-
-                        {/* Button */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             router.push(`/freefiretools/${tool.slug}`);
                           }}
-                          className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
+                          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
                         >
                           View Details <FiArrowRight className="w-4 h-4" />
                         </button>
@@ -233,7 +233,6 @@ export default function FreeFireTools() {
                 })}
               </div>
 
-              {/* Slider Controls */}
               {featuredTools.length > 1 && (
                 <>
                   <button
@@ -256,14 +255,14 @@ export default function FreeFireTools() {
             </div>
           )}
 
-          {/* ── RESULTS COUNT ── */}
+          {/* ── Results Count ── */}
           <p className="text-sm text-slate-400 mb-4">
-            Showing <span className="text-white font-medium">{filteredTools.length}</span> tools
+            Showing <span className="text-white font-medium">{displayTools.length}</span> tools
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* ── NORMAL APPS ── */}
-          {filteredTools.length === 0 ? (
+          {/* ── Normal Apps Grid / List ── */}
+          {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-xl font-bold text-white">No tools found</h3>
@@ -277,7 +276,7 @@ export default function FreeFireTools() {
             </div>
           ) : viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredTools.map((tool) => {
+              {displayTools.map((tool) => {
                 const mainImage = getMainImage(tool);
                 return (
                   <div
@@ -285,7 +284,6 @@ export default function FreeFireTools() {
                     className="bg-slate-800/70 border border-slate-700 rounded-2xl overflow-hidden hover:border-purple-500/50 transition hover:bg-slate-800 group cursor-pointer hover:shadow-xl hover:shadow-purple-500/10 flex flex-col"
                     onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                   >
-                    {/* Thumbnail */}
                     <div className="relative aspect-video bg-slate-700 overflow-hidden">
                       {mainImage ? (
                         <Image
@@ -310,8 +308,6 @@ export default function FreeFireTools() {
                         {tool.platform}
                       </span>
                     </div>
-
-                    {/* Text Area */}
                     <div className="p-4 flex flex-col flex-1">
                       <div className="flex items-center gap-2">
                         {tool.imageUrl && (
@@ -349,7 +345,7 @@ export default function FreeFireTools() {
             </div>
           ) : (
             <div className="space-y-4">
-              {filteredTools.map((tool) => {
+              {displayTools.map((tool) => {
                 const mainImage = getMainImage(tool);
                 return (
                   <div
