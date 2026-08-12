@@ -19,7 +19,6 @@ import {
 } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 
-// ── Constants ──
 const CATEGORIES = ['All', 'Sensi', 'Panel', 'Regedit', 'Hacks', 'Tools'];
 const PLATFORMS = ['All', 'Android', 'iOS', 'PC'];
 const SORT_OPTIONS = [
@@ -38,7 +37,6 @@ export default function FreeFireTools() {
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
 
-  // ── Featured slider ──
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideInterval = useRef(null);
 
@@ -73,7 +71,6 @@ export default function FreeFireTools() {
     goToSlide((currentSlide + 1) % featuredTools.length);
   };
 
-  // ── Filter & sort ──
   const filteredTools = useMemo(() => {
     let result = toolsData;
     if (searchTerm.trim()) {
@@ -110,7 +107,6 @@ export default function FreeFireTools() {
     return result;
   }, [searchTerm, selectedCategory, selectedPlatform, sortBy]);
 
-  // ── Display logic: no duplicates ──
   const displayTools = isFilterActive
     ? filteredTools
     : filteredTools.filter(t => !t.featured);
@@ -150,17 +146,23 @@ export default function FreeFireTools() {
       />
 
       <div className="min-h-screen bg-slate-900 text-white">
+        {/* ── Page Header ── */}
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
+          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+            <FaFire className="text-orange-400" /> Free Fire Tools
+          </h1>
+          <p className="text-sm text-slate-400">Discover the best tools, configs & APKs</p>
+        </div>
+
         {/* ── Sticky Search & Filter Bar ── */}
         <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              {/* Left: Title (optional) or icon */}
               <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
                 <FaFire className="text-orange-400" />
                 <span className="hidden sm:inline">Tools</span>
               </div>
 
-              {/* Search Input */}
               <div className="flex-1 relative w-full sm:w-auto">
                 <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
@@ -172,7 +174,6 @@ export default function FreeFireTools() {
                 />
               </div>
 
-              {/* Filter Toggle & View Mode */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
@@ -205,7 +206,6 @@ export default function FreeFireTools() {
               </div>
             </div>
 
-            {/* ── Expandable Filters ── */}
             {showFilters && (
               <div className="mt-3 pt-3 border-t border-slate-700/50">
                 <div className="flex flex-wrap items-center gap-4">
@@ -269,7 +269,6 @@ export default function FreeFireTools() {
 
         {/* ── Main Content ── */}
         <div className="max-w-7xl mx-auto px-4 py-6">
-          {/* ── Featured Slider ── */}
           {hasFeatured && !isFilterActive && (
             <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
@@ -370,13 +369,11 @@ export default function FreeFireTools() {
             </div>
           )}
 
-          {/* ── Results Count ── */}
           <p className="text-sm text-slate-400 mb-4">
             Showing <span className="text-white font-medium">{displayTools.length}</span> tools
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* ── Tool Feed ── */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
