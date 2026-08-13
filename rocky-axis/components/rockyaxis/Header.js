@@ -32,18 +32,13 @@ export default function Header() {
 
   const isActive = (path) => router.pathname === path;
 
-  // Text color based on scroll state
-  const textColor = isScrolled ? 'text-slate-300' : 'text-white';
-  const hoverBg = isScrolled ? 'hover:bg-slate-700/50' : 'hover:bg-white/10';
+  // Base classes – always transparent background by default
+  const headerBaseClass = 'sticky top-0 z-50 transition-all duration-300';
+  const headerScrolledClass = 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]';
+  const headerDefaultClass = 'bg-transparent border-b border-transparent';
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
-          : 'bg-transparent border-b border-transparent'
-      }`}
-    >
+    <header className={`${headerBaseClass} ${isScrolled ? headerScrolledClass : headerDefaultClass}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo & Brand */}
@@ -88,7 +83,9 @@ export default function Header() {
                     ? isScrolled
                       ? 'bg-purple-600/20 text-white shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-purple-500/30'
                       : 'bg-white/20 text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-white/20'
-                    : `${textColor} ${hoverBg}`
+                    : isScrolled
+                    ? 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                    : 'text-white hover:text-white hover:bg-white/10'
                 }`}
               >
                 <item.icon className="w-4 h-4" />
