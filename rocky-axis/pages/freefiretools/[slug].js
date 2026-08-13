@@ -16,12 +16,31 @@ import toast from 'react-hot-toast';
 
 const SITE_URL = 'https://rockyaxis.vercel.app';
 
-export default function ToolDetail() {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [isDownloading, setIsDownloading] = useState(false);
+// ── Static paths ──
+export async function getStaticPaths() {
+  const paths = toolsData.map((tool) => ({
+    params: { slug: tool.slug },
+  }));
+  return { paths, fallback: false };
+}
 
+// ── Static props ──
+export async function getStaticProps({ params }) {
+  const { slug } = params;
   const tool = toolsData.find((t) => t.slug === slug);
+
+  if (!tool) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { tool },
+  };
+}
+
+export default function ToolDetail({ tool }) {
+  const router = useRouter();
+  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!tool) {
     return (
