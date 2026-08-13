@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { FiMenu, FiX, FiHome, FiGrid, FiArrowRight } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiGrid, FiArrowRight, FiZap } from 'react-icons/fi';
+import { FaFire } from 'react-icons/fa';
 
 export default function Header() {
   const router = useRouter();
@@ -21,16 +22,18 @@ export default function Header() {
     closeMenu();
   };
 
+  const isActive = (path) => router.pathname === path;
+
   return (
-    <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
+    <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo & Brand */}
           <div
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer group"
             onClick={() => handleNavigation('/')}
           >
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700 shadow-md">
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/30 flex-shrink-0 bg-slate-700 shadow-md group-hover:border-purple-400/60 transition-all duration-300">
               <Image
                 src="/images/rockyaxis.jpg"
                 alt="Rocky Axis"
@@ -38,44 +41,57 @@ export default function Header() {
                 height={40}
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/10 transition-all duration-300" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
-              Rocky Axis
-            </span>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent tracking-tight group-hover:from-purple-300 group-hover:to-indigo-300 transition-all duration-300">
+                Rocky Axis
+              </span>
+              <span className="text-[10px] font-medium text-slate-400 tracking-wider uppercase hidden sm:block">
+                Free Fire Hub
+              </span>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
               <button
                 key={item.path}
                 onClick={() => handleNavigation(item.path)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl transition ${
-                  router.pathname === item.path
-                    ? 'text-white bg-purple-600/30'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
+                  isActive(item.path)
+                    ? 'bg-purple-600/20 text-white shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-purple-500/30'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-700/50 hover:shadow-lg hover:shadow-purple-500/5'
                 }`}
               >
                 <item.icon className="w-4 h-4" />
                 {item.name}
               </button>
             ))}
-          </nav>
-
-          {/* Right side: CTA (desktop) + Hamburger (mobile) */}
-          <div className="flex items-center gap-4">
+            {/* CTA Button */}
             <button
               onClick={() => handleNavigation('/freefiretools')}
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg hover:shadow-purple-500/30"
+              className="ml-2 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105 active:scale-95"
             >
-              Explore Tools
+              <FiZap className="w-4 h-4" />
+              Explore
               <FiArrowRight className="w-4 h-4" />
             </button>
+          </nav>
 
-            {/* Mobile menu toggle */}
+          {/* Mobile Right: CTA (icon) + Hamburger */}
+          <div className="flex items-center gap-3 md:hidden">
+            <button
+              onClick={() => handleNavigation('/freefiretools')}
+              className="p-2 bg-purple-600/20 text-purple-400 rounded-xl hover:bg-purple-600/30 transition"
+              aria-label="Explore Tools"
+            >
+              <FiZap className="w-5 h-5" />
+            </button>
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 text-slate-300 hover:text-white rounded-xl hover:bg-slate-700/50 transition"
+              className="p-2 text-slate-300 hover:text-white rounded-xl hover:bg-slate-700/50 transition-all duration-200"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -86,15 +102,15 @@ export default function Header() {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-slate-800/95 border-t border-slate-700/50 py-2 px-4 shadow-lg">
-          <nav className="flex flex-col space-y-1">
+        <div className="md:hidden bg-slate-800/95 backdrop-blur-xl border-t border-slate-700/50 py-3 px-4 shadow-2xl animate-fadeIn">
+          <nav className="flex flex-col space-y-2 max-w-7xl mx-auto">
             {navItems.map((item) => (
               <button
                 key={item.path}
                 onClick={() => handleNavigation(item.path)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-                  router.pathname === item.path
-                    ? 'text-white bg-purple-600/30'
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive(item.path)
+                    ? 'bg-purple-600/20 text-white border border-purple-500/30'
                     : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
                 }`}
               >
@@ -104,14 +120,32 @@ export default function Header() {
             ))}
             <button
               onClick={() => handleNavigation('/freefiretools')}
-              className="flex items-center justify-center gap-2 px-4 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition shadow-lg"
+              className="flex items-center justify-center gap-2 px-4 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20"
             >
+              <FiZap className="w-5 h-5" />
               Explore Tools
-              <FiArrowRight className="w-4 h-4" />
+              <FiArrowRight className="w-5 h-5" />
             </button>
           </nav>
         </div>
       )}
+
+      {/* Mobile menu animation */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-out;
+        }
+      `}</style>
     </header>
   );
 }
