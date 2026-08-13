@@ -32,13 +32,15 @@ export default function Header() {
 
   const isActive = (path) => router.pathname === path;
 
-  // Base classes – always transparent background by default
-  const headerBaseClass = 'sticky top-0 z-50 transition-all duration-300';
-  const headerScrolledClass = 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]';
-  const headerDefaultClass = 'bg-transparent border-b border-transparent';
-
   return (
-    <header className={`${headerBaseClass} ${isScrolled ? headerScrolledClass : headerDefaultClass}`}>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+      style={{ background: isScrolled ? undefined : 'transparent !important' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo & Brand */}
