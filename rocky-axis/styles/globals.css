@@ -2,16 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-::-webkit-scrollbar-thumb {
-  background: #6b21a5;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #8b5cf6;
+/* Dark background for the entire page – fixes transparent header white issue */
+body {
+  background: #0f172a; /* slate-900 */
 }
