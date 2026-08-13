@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { FiMenu, FiX, FiHome, FiGrid, FiArrowRight, FiZap } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiGrid, FiArrowRight } from 'react-icons/fi';
 
 export default function Header() {
   const router = useRouter();
@@ -105,25 +105,27 @@ export default function Header() {
                   : 'bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/20'
               }`}
             >
-              <FiZap className="w-4 h-4" />
               Explore
               <FiArrowRight className="w-4 h-4" />
             </button>
           </nav>
 
-          {/* Mobile Right */}
-          <div className="flex items-center gap-3 md:hidden">
+          {/* ── Mobile: Home + Menu ── */}
+          <div className="flex items-center gap-2 md:hidden">
+            {/* Home Button */}
             <button
-              onClick={() => handleNavigation('/freefiretools')}
+              onClick={() => handleNavigation('/')}
               className={`p-2 rounded-xl transition ${
                 isScrolled
-                  ? 'bg-purple-600/20 text-purple-400 hover:bg-purple-600/30'
-                  : 'bg-white/10 text-white hover:bg-white/20'
+                  ? 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                  : 'text-white hover:bg-white/10'
               }`}
-              aria-label="Explore Tools"
+              aria-label="Home"
             >
-              <FiZap className="w-5 h-5" />
+              <FiHome className="w-5 h-5" />
             </button>
+
+            {/* Menu Toggle */}
             <button
               onClick={toggleMenu}
               className={`p-2 rounded-xl transition ${
@@ -161,9 +163,8 @@ export default function Header() {
               onClick={() => handleNavigation('/freefiretools')}
               className="flex items-center justify-center gap-2 px-4 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20"
             >
-              <FiZap className="w-5 h-5" />
               Explore Tools
-              <FiArrowRight className="w-5 h-5" />
+              <FiArrowRight className="w-4 h-4" />
             </button>
           </nav>
         </div>
