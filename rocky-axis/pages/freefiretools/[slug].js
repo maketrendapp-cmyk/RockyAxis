@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Meta from '../../components/Meta';
-import Footer from '../../components/rockyaxis/Footer';
 import { toolsData } from '../../lib/rockyaxis/data';
 import {
   FiArrowLeft,
@@ -69,7 +68,6 @@ export default function ToolDetail() {
 
   return (
     <>
-      {/* ── Meta tags ── */}
       <Meta
         title={`${tool.name} – Free Fire Tool by Rocky Axis`}
         description={tool.longDescription || tool.description}
@@ -79,7 +77,6 @@ export default function ToolDetail() {
         type="article"
       />
 
-      {/* ── JSON-LD Structured Data ── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -164,7 +161,7 @@ export default function ToolDetail() {
           </div>
         </div>
 
-        {/* ── Content (unchanged) ── */}
+        {/* ── Content ── */}
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div>
@@ -235,8 +232,6 @@ export default function ToolDetail() {
             </div>
           </div>
         </div>
-
-        <Footer />
       </div>
     </>
   );
