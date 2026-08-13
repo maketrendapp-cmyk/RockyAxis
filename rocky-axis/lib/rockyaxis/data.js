@@ -23,7 +23,7 @@ Zerox FF Sensi APK is trusted by thousands of players worldwide to improve their
     ],
     downloads: '8.7K',
     rating: 4.9,
-    featured: true, // Changed to false
+    featured: false, // Changed to false
     downloadUrl: 'https://www.mediafire.com/file/9siqclyg8pkx6x1/%25F0%259D%2590%2599%25F0%259D%2590%259E%25F0%259D%2590%25AB%25F0%259D%2590%25A8%25F0%259D%2590%25B1_%25F0%259D%2590%2585%25F0%259D%2590%2585_%25F0%259D%2590%2592%25F0%259D%2590%259E%25F0%259D%2590%25A7%25F0%259D%2590%25AC%25F0%259D%2590%25A2.apk/file',
     fileSize: '15 MB',
     version: 'v1.0.0',
