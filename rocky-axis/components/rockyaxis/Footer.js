@@ -8,7 +8,7 @@ import {
   FiMail,
   FiArrowUpRight,
 } from 'react-icons/fi';
-import { FaFire, FaWhatsapp, FaFacebook } from 'react-icons/fa';
+import { FaFire, FaWhatsapp, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
   const router = useRouter();
@@ -21,6 +21,8 @@ export default function Footer() {
   ];
 
   const socialLinks = [
+    { name: 'Instagram', icon: FaInstagram, url: 'https://instagram.com/rockyaxis' },
+    { name: 'YouTube', icon: FaYoutube, url: 'https://youtube.com/@rockyxsiyu?si=XXZudYRoWfKpYWEd' },
     { name: 'WhatsApp Channel', icon: FaWhatsapp, url: 'https://whatsapp.com/channel/0029Vb6p9OD6buMGD949uX1f' },
     { name: 'Facebook', icon: FaFacebook, url: 'https://www.facebook.com/maketrendapp' },
   ];
