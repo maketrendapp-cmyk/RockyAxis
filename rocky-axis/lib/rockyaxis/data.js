@@ -12,14 +12,6 @@ export const toolsData = [
     description: 'Advanced sensitivity optimizer for pro-level gameplay and one-tap headshots.',
     longDescription: `Zerox FF Sensi APK is a powerful sensitivity optimization tool designed specifically for Free Fire players who want to achieve pro-level accuracy. This APK provides advanced sensitivity settings, aim assist tweaks, and real-time calibration to help you land one-tap headshots consistently.
 
-Key Features:
-- Pro-level sensitivity presets
-- One-tap headshot optimization
-- Real-time aim calibration
-- Low latency response
-- Works on all Android devices (5.0+)
-- Regular updates with new presets
-
 Zerox FF Sensi APK is trusted by thousands of players worldwide to improve their gameplay and dominate in ranked matches.`,
     features: [
       'Pro-level sensitivity presets',
