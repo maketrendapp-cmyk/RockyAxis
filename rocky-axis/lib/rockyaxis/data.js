@@ -56,7 +56,7 @@ Trusted by both casual and competitive players, Rai Star Sensi APK helps you dom
     ],
     downloads: '5.2K',
     rating: 4.8,
-    featured: false, // Changed to false
+    featured: true, // Changed to false
     downloadUrl: 'https://www.mediafire.com/file/mlvscwg5l692g0m/%25F0%259D%2590%259A%25F0%259D%2590%25A2%25F0%259D%2590%25A8%2B%25F0%259D%2590%25A3%25F0%259D%2590%25AB%25F0%259D%2590%25A8%25F0%259D%2590%25AB%2B%25F0%259D%2590%2592%25F0%259D%2590%259E%25F0%259D%2590%25A7%25F0%259D%2590%25AC%25F0%259D%2590%25A2.apk/file',
     fileSize: '12 MB',
     version: 'v1.0.0',
