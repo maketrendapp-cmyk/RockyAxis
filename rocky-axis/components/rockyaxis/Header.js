@@ -39,7 +39,6 @@ export default function Header() {
           ? 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
           : 'bg-transparent border-b border-transparent'
       }`}
-      style={{ background: isScrolled ? undefined : 'transparent !important' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -59,16 +58,20 @@ export default function Header() {
               <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/10 transition-all duration-300" />
             </div>
             <div className="flex flex-col">
-              <span className={`text-xl font-bold tracking-tight transition-all duration-300 ${
-                isScrolled
-                  ? 'bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent'
-                  : 'text-white'
-              }`}>
+              <span
+                className={`text-xl font-bold tracking-tight transition-all duration-300 ${
+                  isScrolled
+                    ? 'bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent'
+                    : 'text-white'
+                }`}
+              >
                 Rocky Axis
               </span>
-              <span className={`text-[10px] font-medium tracking-wider uppercase hidden sm:block ${
-                isScrolled ? 'text-slate-400' : 'text-white/60'
-              }`}>
+              <span
+                className={`text-[10px] font-medium tracking-wider uppercase hidden sm:block ${
+                  isScrolled ? 'text-slate-400' : 'text-white/60'
+                }`}
+              >
                 Free Fire Hub
               </span>
             </div>
