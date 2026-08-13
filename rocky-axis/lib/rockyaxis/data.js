@@ -45,14 +45,6 @@ Zerox FF Sensi APK is trusted by thousands of players worldwide to improve their
     description: 'Professional sensitivity config for headshots and smooth gameplay.',
     longDescription: `Rai Star Sensi APK is a high‑performance sensitivity configuration tool built for Free Fire players who want consistent headshots and ultra‑smooth gameplay. It combines advanced aim assist, custom presets, and low‑latency calibration to give you a competitive edge in every match.
 
-Key Features:
-- Optimized for headshot accuracy
-- Custom aim assist presets
-- Real‑time sensitivity calibration
-- Low latency response
-- Works on all Android devices (5.0+)
-- Regularly updated with new presets
-
 Trusted by both casual and competitive players, Rai Star Sensi APK helps you dominate ranked matches with ease.`,
     features: [
       'Optimized for headshot accuracy',
