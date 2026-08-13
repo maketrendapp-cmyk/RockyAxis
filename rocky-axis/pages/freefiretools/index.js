@@ -14,6 +14,7 @@ import {
   FiFilter,
   FiX,
   FiGrid,
+  FiArrowLeft,
 } from 'react-icons/fi';
 
 const CATEGORIES = ['All', 'Sensi', 'Panel', 'Regedit', 'Hacks', 'Tools'];
@@ -139,6 +140,15 @@ export default function FreeFireTools() {
 
       <div className="min-h-screen bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
+          {/* ── Back Button ── */}
+          <button
+            onClick={() => router.push('/')}
+            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white hover:bg-slate-700/50 px-3 py-2 rounded-xl transition mb-4"
+          >
+            <FiArrowLeft className="w-4 h-4" />
+            Back to Home
+          </button>
+
           {/* ── Search & Filter Section ── */}
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 mb-6 shadow-lg">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
