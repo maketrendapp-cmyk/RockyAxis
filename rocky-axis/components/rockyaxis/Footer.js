@@ -124,7 +124,7 @@ export default function Footer() {
               Have a tool or config to share? Reach out to us.
             </p>
             <button
-              onClick={() => window.location.href = 'mailto:rockyaxis@example.com'}
+              onClick={() => window.location.href = 'mailto: rockyaxisesports@gmail.com'}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-medium rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40"
             >
               <FiMail className="w-4 h-4" />
