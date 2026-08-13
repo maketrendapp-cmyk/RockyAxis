@@ -1,13 +1,21 @@
 // components/rockyaxis/Header.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { FiMenu, FiX, FiHome, FiGrid, FiArrowRight, FiZap } from 'react-icons/fi';
-import { FaFire } from 'react-icons/fa';
 
 export default function Header() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -25,7 +33,13 @@ export default function Header() {
   const isActive = (path) => router.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo & Brand */}
@@ -69,7 +83,6 @@ export default function Header() {
                 {item.name}
               </button>
             ))}
-            {/* CTA Button */}
             <button
               onClick={() => handleNavigation('/freefiretools')}
               className="ml-2 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105 active:scale-95"
@@ -80,18 +93,26 @@ export default function Header() {
             </button>
           </nav>
 
-          {/* Mobile Right: CTA (icon) + Hamburger */}
+          {/* Mobile Right */}
           <div className="flex items-center gap-3 md:hidden">
             <button
               onClick={() => handleNavigation('/freefiretools')}
-              className="p-2 bg-purple-600/20 text-purple-400 rounded-xl hover:bg-purple-600/30 transition"
+              className={`p-2 rounded-xl transition ${
+                isScrolled
+                  ? 'bg-purple-600/20 text-purple-400 hover:bg-purple-600/30'
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
               aria-label="Explore Tools"
             >
               <FiZap className="w-5 h-5" />
             </button>
             <button
               onClick={toggleMenu}
-              className="p-2 text-slate-300 hover:text-white rounded-xl hover:bg-slate-700/50 transition-all duration-200"
+              className={`p-2 rounded-xl transition ${
+                isScrolled
+                  ? 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                  : 'text-white hover:bg-white/10'
+              }`}
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -130,7 +151,6 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile menu animation */}
       <style jsx>{`
         @keyframes fadeIn {
           from {
