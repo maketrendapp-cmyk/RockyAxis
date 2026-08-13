@@ -6,13 +6,9 @@ import {
   FiHome,
   FiGrid,
   FiMail,
-  FiGithub,
-  FiTwitter,
-  FiYoutube,
-  FiInstagram,
   FiArrowUpRight,
 } from 'react-icons/fi';
-import { FaFire } from 'react-icons/fa';
+import { FaFire, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 
 export default function Footer() {
   const router = useRouter();
@@ -25,10 +21,8 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { name: 'Twitter', icon: FiTwitter, url: 'https://twitter.com/rockyaxis' },
-    { name: 'GitHub', icon: FiGithub, url: 'https://github.com/rockyaxis' },
-    { name: 'YouTube', icon: FiYoutube, url: 'https://youtube.com/@rockyaxis' },
-    { name: 'Instagram', icon: FiInstagram, url: 'https://instagram.com/rockyaxis' },
+    { name: 'WhatsApp Channel', icon: FaWhatsapp, url: 'https://whatsapp.com/channel/0029Vb6p9OD6buMGD949uX1f' },
+    { name: 'Facebook', icon: FaFacebook, url: 'https://www.facebook.com/maketrendapp' },
   ];
 
   const handleNavigation = (path) => {
