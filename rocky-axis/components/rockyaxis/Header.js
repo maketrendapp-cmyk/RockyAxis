@@ -110,19 +110,20 @@ export default function Header() {
             </button>
           </nav>
 
-          {/* ── Mobile: Home + Menu ── */}
+          {/* ── Mobile: Home (text + icon) & Menu ── */}
           <div className="flex items-center gap-2 md:hidden">
-            {/* Home Button */}
+            {/* Home Button with Text */}
             <button
               onClick={() => handleNavigation('/')}
-              className={`p-2 rounded-xl transition ${
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition ${
                 isScrolled
                   ? 'text-slate-300 hover:text-white hover:bg-slate-700/50'
                   : 'text-white hover:bg-white/10'
               }`}
               aria-label="Home"
             >
-              <FiHome className="w-5 h-5" />
+              <FiHome className="w-4 h-4" />
+              <span>Home</span>
             </button>
 
             {/* Menu Toggle */}
