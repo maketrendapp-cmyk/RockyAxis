@@ -26,7 +26,6 @@ import {
   FiChevronRight,
   FiTrendingUp,
   FiCheck,
-  FiSparkles,
 } from 'react-icons/fi';
 import { FaFire, FaRocket } from 'react-icons/fa';
 
@@ -188,7 +187,7 @@ export default function RockyAxis() {
                   {/* Overlay Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-6 sm:p-8">
                     <span className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-1 flex items-center gap-1">
-                      <FiSparkles /> Featured Showcase
+                      <FiStar className="fill-purple-400" /> Featured Showcase
                     </span>
                     <h3 className="text-xl sm:text-3xl font-black text-white">{img.title}</h3>
                     <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">{img.subtitle}</p>
@@ -359,4 +358,5 @@ export default function RockyAxis() {
     </>
   );
 }
+
 
