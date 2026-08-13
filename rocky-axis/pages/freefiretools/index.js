@@ -143,7 +143,6 @@ export default function FreeFireTools() {
         {/* ── Page Header with Back Button ── */}
         <div className="bg-slate-800/50 border-b border-slate-700/50 py-4 px-4">
           <div className="max-w-7xl mx-auto flex items-center gap-4">
-            {/* Back Button */}
             <button
               onClick={() => router.push('/')}
               className="flex items-center gap-2 px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-xl transition"
@@ -192,7 +191,7 @@ export default function FreeFireTools() {
                   <FiFilter className="w-5 h-5" />
                 </button>
 
-                {/* ── Static Grid Indicator ── */}
+                {/* Static Grid Indicator */}
                 <div className="p-2 rounded-xl bg-slate-700/50 border border-slate-600/50 text-purple-400">
                   <FiGrid className="w-5 h-5" />
                 </div>
@@ -266,7 +265,101 @@ export default function FreeFireTools() {
           {/* Featured Slider */}
           {hasFeatured && !isFilterActive && (
             <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
-              {/* ... (same as before) ... */}
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {featuredTools.map((tool) => {
+                  const mainImage = getMainImage(tool);
+                  return (
+                    <div
+                      key={tool.id}
+                      className="w-full flex-shrink-0 cursor-pointer group"
+                      onClick={() => router.push(`/freefiretools/${tool.slug}`)}
+                    >
+                      <div className="relative w-full aspect-[16/6] min-h-[200px] bg-slate-700">
+                        {mainImage ? (
+                          <Image
+                            src={mainImage}
+                            alt={tool.name}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 1200px"
+                            priority
+                            quality={90}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-indigo-900/50">
+                            <FiPackage className="w-24 h-24 text-purple-400/50" />
+                          </div>
+                        )}
+                        <span className="absolute top-3 right-3 bg-yellow-500/90 text-black text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-lg z-10">
+                          <FiStar className="w-3 h-3" /> Featured
+                        </span>
+                      </div>
+
+                      <div className="bg-slate-800/95 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t border-purple-500/20 shadow-inner">
+                        {tool.imageUrl && (
+                          <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg flex-shrink-0 bg-slate-700">
+                            <Image
+                              src={tool.imageUrl}
+                              alt={`${tool.name} icon`}
+                              width={56}
+                              height={56}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-400 transition">
+                              {tool.name}
+                            </h2>
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
+                              {tool.category}
+                            </span>
+                            <span className="bg-slate-700 text-white text-xs px-2.5 py-0.5 rounded-full">
+                              {tool.platform}
+                            </span>
+                          </div>
+                          <p className="text-sm text-slate-400 mt-1 line-clamp-2 max-w-2xl">
+                            {tool.description}
+                          </p>
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/freefiretools/${tool.slug}`);
+                          }}
+                          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-lg"
+                        >
+                          View Details <FiArrowRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {featuredTools.length > 1 && (
+                <>
+                  <button
+                    onClick={prevSlide}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition z-20"
+                  >
+                    <FiChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition z-20"
+                  >
+                    <FiChevronRight className="w-5 h-5" />
+                  </button>
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    {renderDots()}
+                  </div>
+                </>
+              )}
             </div>
           )}
 
@@ -299,7 +392,61 @@ export default function FreeFireTools() {
                     className="bg-slate-800/70 border border-slate-700 rounded-2xl overflow-hidden hover:border-purple-500/50 transition hover:bg-slate-800 group cursor-pointer hover:shadow-xl hover:shadow-purple-500/10 flex flex-col"
                     onClick={() => router.push(`/freefiretools/${tool.slug}`)}
                   >
-                    {/* ... card content (same as before) ... */}
+                    <div className="relative aspect-video bg-slate-700 overflow-hidden">
+                      {mainImage ? (
+                        <Image
+                          src={mainImage}
+                          alt={tool.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition duration-300"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          quality={85}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-indigo-900/50">
+                          <FiPackage className="w-16 h-16 text-purple-400/50" />
+                        </div>
+                      )}
+                      {tool.featured && (
+                        <span className="absolute top-2 right-2 bg-yellow-500/90 text-black text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-lg">
+                          <FiStar className="w-3 h-3" /> Featured
+                        </span>
+                      )}
+                      <span className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full">
+                        {tool.platform}
+                      </span>
+                    </div>
+                    <div className="p-4 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {tool.imageUrl && (
+                          <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600">
+                            <Image
+                              src={tool.imageUrl}
+                              alt={`${tool.name} icon`}
+                              width={24}
+                              height={24}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <h3 className="font-bold text-white group-hover:text-purple-400 transition text-base line-clamp-1">
+                          {tool.name}
+                        </h3>
+                      </div>
+                      <p className="text-xs text-slate-400 mt-1 line-clamp-2 flex-1">{tool.description}</p>
+                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-700/50">
+                        <span className="text-[10px] text-slate-400">{tool.category}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/freefiretools/${tool.slug}`);
+                          }}
+                          className="text-xs font-medium text-purple-400 hover:text-purple-300 transition flex items-center gap-1"
+                        >
+                          View Details <FiArrowRight className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
