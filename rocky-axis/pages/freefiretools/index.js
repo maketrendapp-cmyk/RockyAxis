@@ -34,7 +34,7 @@ export default function FreeFireTools() {
   const [sortBy, setSortBy] = useState('popular');
   const [showFilters, setShowFilters] = useState(false);
 
-  // ── Featured slider ──
+  // Featured slider
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideInterval = useRef(null);
 
@@ -64,7 +64,7 @@ export default function FreeFireTools() {
   const prevSlide = () => goToSlide((currentSlide - 1 + featuredTools.length) % featuredTools.length);
   const nextSlide = () => goToSlide((currentSlide + 1) % featuredTools.length);
 
-  // ── Filter & sort ──
+  // Filter & sort
   const filteredTools = useMemo(() => {
     let result = toolsData;
     if (searchTerm.trim()) {
@@ -138,25 +138,26 @@ export default function FreeFireTools() {
         url="/freefiretools"
       />
 
-      <div className="min-h-screen bg-slate-900 text-white">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
         {/* ── Page Header ── */}
-        <div className="bg-slate-800/50 border-b border-slate-700/50 py-6 px-4">
+        <div className="relative bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-b border-purple-500/10 py-8 px-4">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white flex items-center gap-2">
-              <FaFire className="text-orange-400" />
-              Free Fire Tools
-            </h1>
-            <p className="text-slate-400 mt-1 text-sm">
+            <div className="flex items-center gap-3 mb-1">
+              <FaFire className="text-4xl text-orange-400" />
+              <h1 className="text-3xl sm:text-4xl font-bold text-white">Free Fire Tools</h1>
+            </div>
+            <p className="text-slate-400 text-sm max-w-2xl">
               Browse and download the best Free Fire tools – Sensi APKs, Regedit files, Headshot configs, and more. All free!
             </p>
           </div>
+          {/* Subtle glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-indigo-600/5 pointer-events-none" />
         </div>
 
         {/* ── Sticky Search Bar ── */}
         <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              {/* Search Input */}
               <div className="flex-1 relative w-full sm:w-auto">
                 <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
@@ -168,7 +169,6 @@ export default function FreeFireTools() {
                 />
               </div>
 
-              {/* Filter Toggle + Grid Indicator */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
@@ -180,15 +180,12 @@ export default function FreeFireTools() {
                 >
                   <FiFilter className="w-5 h-5" />
                 </button>
-
-                {/* ── Static Grid Indicator (no click, just visual) ── */}
                 <div className="p-2 rounded-xl bg-slate-700/50 border border-slate-600/50 text-purple-400">
                   <FiGrid className="w-5 h-5" />
                 </div>
               </div>
             </div>
 
-            {/* Expandable Filters */}
             {showFilters && (
               <div className="mt-3 pt-3 border-t border-slate-700/50">
                 <div className="flex flex-wrap items-center gap-4">
@@ -359,7 +356,7 @@ export default function FreeFireTools() {
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* Tool Grid (always grid) */}
+          {/* Tool Grid */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
