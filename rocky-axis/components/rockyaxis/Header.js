@@ -32,6 +32,10 @@ export default function Header() {
 
   const isActive = (path) => router.pathname === path;
 
+  // Text color based on scroll state
+  const textColor = isScrolled ? 'text-slate-300' : 'text-white';
+  const hoverBg = isScrolled ? 'hover:bg-slate-700/50' : 'hover:bg-white/10';
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -58,10 +62,16 @@ export default function Header() {
               <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/10 transition-all duration-300" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent tracking-tight group-hover:from-purple-300 group-hover:to-indigo-300 transition-all duration-300">
+              <span className={`text-xl font-bold tracking-tight transition-all duration-300 ${
+                isScrolled
+                  ? 'bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent'
+                  : 'text-white'
+              }`}>
                 Rocky Axis
               </span>
-              <span className="text-[10px] font-medium text-slate-400 tracking-wider uppercase hidden sm:block">
+              <span className={`text-[10px] font-medium tracking-wider uppercase hidden sm:block ${
+                isScrolled ? 'text-slate-400' : 'text-white/60'
+              }`}>
                 Free Fire Hub
               </span>
             </div>
@@ -75,8 +85,10 @@ export default function Header() {
                 onClick={() => handleNavigation(item.path)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                   isActive(item.path)
-                    ? 'bg-purple-600/20 text-white shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-purple-500/30'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-700/50 hover:shadow-lg hover:shadow-purple-500/5'
+                    ? isScrolled
+                      ? 'bg-purple-600/20 text-white shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-purple-500/30'
+                      : 'bg-white/20 text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-white/20'
+                    : `${textColor} ${hoverBg}`
                 }`}
               >
                 <item.icon className="w-4 h-4" />
@@ -85,7 +97,11 @@ export default function Header() {
             ))}
             <button
               onClick={() => handleNavigation('/freefiretools')}
-              className="ml-2 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105 active:scale-95"
+              className={`ml-2 inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg hover:scale-105 active:scale-95 ${
+                isScrolled
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-purple-500/20 hover:shadow-purple-500/40'
+                  : 'bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/20'
+              }`}
             >
               <FiZap className="w-4 h-4" />
               Explore
