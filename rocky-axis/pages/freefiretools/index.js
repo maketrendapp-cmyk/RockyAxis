@@ -14,9 +14,7 @@ import {
   FiFilter,
   FiX,
   FiGrid,
-  FiArrowLeft,
 } from 'react-icons/fi';
-import { FaFire } from 'react-icons/fa';
 
 const CATEGORIES = ['All', 'Sensi', 'Panel', 'Regedit', 'Hacks', 'Tools'];
 const PLATFORMS = ['All', 'Android', 'iOS', 'PC'];
@@ -140,31 +138,9 @@ export default function FreeFireTools() {
       />
 
       <div className="min-h-screen bg-slate-900 text-white">
-        {/* ── Page Header with Back Button ── */}
-        <div className="bg-slate-800/50 border-b border-slate-700/50 py-4 px-4">
-          <div className="max-w-7xl mx-auto flex items-center gap-4">
-            <button
-              onClick={() => router.push('/')}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-xl transition"
-            >
-              <FiArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
-                <FaFire className="text-orange-400" />
-                Free Fire Tools
-              </h1>
-              <p className="text-slate-400 text-sm hidden sm:block">
-                Browse and download the best Free Fire tools – Sensi APKs, Regedit files, Headshot configs, and more. All free!
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Sticky Search Bar ── */}
-        <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          {/* ── Search & Filter Section ── */}
+          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 mb-6 shadow-lg">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               {/* Search Input */}
               <div className="flex-1 relative w-full sm:w-auto">
@@ -174,7 +150,7 @@ export default function FreeFireTools() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search tools..."
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-800/80 border border-slate-600/50 rounded-xl text-sm text-white placeholder-slate-400 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 transition shadow-sm"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-800/80 border border-slate-600/50 rounded-xl text-sm text-white placeholder-slate-400 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 transition"
                 />
               </div>
 
@@ -190,8 +166,6 @@ export default function FreeFireTools() {
                 >
                   <FiFilter className="w-5 h-5" />
                 </button>
-
-                {/* Static Grid Indicator */}
                 <div className="p-2 rounded-xl bg-slate-700/50 border border-slate-600/50 text-purple-400">
                   <FiGrid className="w-5 h-5" />
                 </div>
@@ -258,11 +232,8 @@ export default function FreeFireTools() {
               </div>
             )}
           </div>
-        </div>
 
-        {/* ── Main Content ── */}
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          {/* Featured Slider */}
+          {/* ── Featured Slider ── */}
           {hasFeatured && !isFilterActive && (
             <div className="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/10">
               <div
@@ -363,13 +334,13 @@ export default function FreeFireTools() {
             </div>
           )}
 
-          {/* Results Count */}
+          {/* ── Results Count ── */}
           <p className="text-sm text-slate-400 mb-4">
             Showing <span className="text-white font-medium">{displayTools.length}</span> tools
             {hasActiveFilters && <span className="text-xs ml-2 text-slate-500">(filters active)</span>}
           </p>
 
-          {/* Tool Grid */}
+          {/* ── Tool Grid ── */}
           {displayTools.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
