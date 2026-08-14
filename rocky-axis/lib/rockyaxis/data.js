@@ -100,6 +100,39 @@ Whether you are a casual player or a competitive grinder, Doctor X Gaming Sensi 
       'https://i.postimg.cc/sx97cq45/Screenshot-20260814-004008.png',
     ],
   },
+  {
+    id: 4,
+    slug: 'mikey-ff-sensi-apk',
+    name: 'Mikey FF Sensi APK',
+    category: 'Sensi',
+    platform: 'Android',
+    imageUrl: 'https://i.postimg.cc/7Lb69pYP/app-icon.jpg',
+    thumbnail: 'https://i.postimg.cc/8zzPkqvy/file-00000000421c820bb0f83a59b8961583.png',
+    description: 'Advanced sensitivity tool for smooth gameplay and precise headshots.',
+    longDescription: `Mikey FF Sensi APK is a powerful sensitivity optimization tool built for Free Fire players who want to improve their aiming accuracy and overall gameplay smoothness. It offers custom sensitivity presets, aim assist enhancements, and real-time calibration to help you land more headshots and dominate matches.
+
+Whether you're a beginner or a pro, Mikey FF Sensi APK provides the competitive edge you need to climb the ranks.`,
+    features: [
+      'Custom sensitivity presets',
+      'Aim assist enhancements',
+      'Real-time calibration',
+      'Smooth gameplay optimization',
+      'Android 5.0+ support',
+      'Regular updates with new presets',
+    ],
+    downloads: '2.8K',
+    rating: 4.6,
+    featured: false,
+    downloadUrl: 'https://www.mediafire.com/file/eswragsisz9ldoo/%25F0%259D%2590%258D%25F0%259D%2590%25A2%25F0%259D%2590%25A7%25F0%259D%2590%259E%25F0%259D%2590%25A5%25F0%259D%2590%259E%25F0%259D%2590%25A5%2B%25F0%259D%2590%2585%25F0%259D%2590%2585%2B%25F0%259D%2590%2592%25F0%259D%2590%259E%25F0%259D%2590%25A7%25F0%259D%2590%25AC%25F0%259D%2590%25A2.apk/file',
+    fileSize: '13 MB',
+    version: 'v1.0.0',
+    updatedAt: '2026-08-14',
+    screenshots: [
+      'https://i.postimg.cc/3w6wcnk3/Screenshot-20260814-010108.png',
+      'https://i.postimg.cc/QMPMy0Fs/Screenshot-20260814-010052.png',
+      'https://i.postimg.cc/xCzdDMz7/Screenshot-20260814-010043.png',
+    ],
+  },
 ];
 
 export const CATEGORIES = ['All', ...new Set(toolsData.map(t => t.category))];
